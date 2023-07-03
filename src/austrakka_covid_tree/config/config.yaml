@@ -1,4 +1,7 @@
 fasta: null
+outdir: null
+dated: False
+starting_tree: null
 tree: 
   threads: null
 lineage:

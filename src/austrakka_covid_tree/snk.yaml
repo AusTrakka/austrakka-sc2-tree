@@ -6,7 +6,19 @@ annotations:
         type: Path
         help: "Fasta file to build tree from"
         required: True
+    outdir:
+        type: Path
+        help: "Output directory for tree and metadata."
+    dated:
+        type: bool
+        help: "Whether to include timestamp in the output."
+    starting_tree:
+        type: Path
+        help: "Starting tree to use for tree building."
     lineage:
+        pango_collapse_url:
+            type: str
+            help: "URL to pango collapse file."
         threads:
             type: int
             help: "Number of threads to use for lineage calling."

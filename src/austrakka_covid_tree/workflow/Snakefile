@@ -5,16 +5,24 @@ WORKFLOW = SNAKEFILE.parent
 RULES = WORKFLOW / "rules"
 ENVS = WORKFLOW / "envs"
 SCRIPTS = WORKFLOW / "scripts"
-RESULTS = Path("results").resolve()
+RESULTS = Path("results")
 LOGS = Path("logs").resolve()
-RESOURCES = WORKFLOW.parent / "resources"
-
-include: RULES / "lineage.smk"
-include: RULES / "tree.smk"
+RESOURCES = WORKFLOW.parent / "data"
 
 fasta_path = Path(config["fasta"]).resolve()
-fasta = fasta_path.stem
+name = fasta_path.stem
+
+if config.get("dated"):
+    import datetime
+    name = f"{datetime.datetime.now().strftime('%Y-%m-%dT%H%M%S.%f')}.{name}"
+
+if config.get("outdir"):
+    name = Path(config["outdir"]) / name
 
 rule all:
     input:
-        expand("{group}.nwk", group=fasta)
+        tree=expand("{group}.nwk", group=name),
+        metadata=expand("{group}.metadata.tsv", group=name),
+
+include: RULES / "lineage.smk"
+include: RULES / "tree.smk"

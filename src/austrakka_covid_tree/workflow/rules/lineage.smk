@@ -46,7 +46,7 @@ rule nextclade:
             -D {input.nextclade_data_dir} \
             --output-tsv {output.nextclade_tsv} \
             --output-fasta {output.alignment} \
-            {input.fasta}
+            {input.fasta}  2>&1 | tee {log}
         """
 
 rule collapse_lineages:
@@ -65,7 +65,7 @@ rule collapse_lineages:
         LOGS / "lineage" / "collapse_lineages.{group}.log"
     shell:
         """
-        pango-collapse -l Nextclade_pango --latest --url {params.url} -o {output} {input} > {log}
+        pango-collapse -l Nextclade_pango --latest --url {params.url} -o {output} {input} 2>&1 | tee {log}
         """
 
 rule mask_lineages:
@@ -90,7 +90,7 @@ rule rename_columns:
     input:
         nextclade_tsv=rules.mask_lineages.output.masked_nextclade_tsv
     output:
-        at_matadata_tsv=temp("metadata.{group}.tsv")
+        at_matadata_tsv="{group}.metadata.tsv",
     conda:
         ENVS / "python.yaml"
     script:

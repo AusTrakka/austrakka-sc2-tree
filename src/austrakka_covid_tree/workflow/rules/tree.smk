@@ -2,7 +2,7 @@ rule alignment_to_vcf:
     input:
         alignment=rules.nextclade.output.alignment,
     output:
-        masked_vcf=temp('{group}.masked.aln')
+        masked_vcf=temp('{group}.masked.vcf')
     params:
         mask = RESOURCES / "problematic_sites_sarsCov2.vcf",
         reference_sequence = RESOURCES / "MN908947.3.fna",
@@ -35,15 +35,12 @@ rule get_starting_tree:
         fi
         """
 
-
 rule usher:
     input:
         vcf=rules.alignment_to_vcf.output.masked_vcf,
         starting_tree=rules.get_starting_tree.output.tree,
     output: 
-        newick='{group}.nwk',
         tree=temp('{group}.tree.pb'),
-        optimized_tree=temp('{group}.optimized.pb')
     params:
         reference = RESOURCES / "MN908947.3.fna"
     threads: 
@@ -51,22 +48,50 @@ rule usher:
     conda:
         ENVS / "usher.yaml"
     log:
-        LOGS / "tree.{group}.log"
+       LOGS / "tree" / "usher.{group}.log"
     shell: 
         """
         usher \
+          --threads {threads} \
           --collapse-tree \
           --tree {input.starting_tree} \
           --vcf {input.vcf} \
           -d {resources.tmpdir} \
-          --save-mutation-annotated-tree {output.tree} > {log}
+          --save-mutation-annotated-tree {output.tree} 2>&1 | tee {log}
+        """
 
+rule matOptimize:
+    input:
+        tree=rules.usher.output.tree,
+    output: 
+        optimized_tree=temp('{group}.optimized.pb')
+    threads: 
+        config["tree"].get("threads") if config["tree"].get("threads") else workflow.cores
+    conda:
+        ENVS / "usher.yaml"
+    log:
+        LOGS / "tree" / "matOptimize.{group}.log"
+    shell: 
+        """
         matOptimize \
           --threads {threads} \
           --do-not-write-intermediate-files \
-          -i {output.tree} \
-          -o {output.optimized_tree} >> {log}
-          
-        matUtils extract -i optimized-tree.pb -t {output.newick} >> {log}
+          -i {input.tree} \
+          -o {output.optimized_tree} 2>&1 | tee {log}
         """
 
+rule extract_tree:
+    input:
+        tree=rules.matOptimize.output.optimized_tree,
+    output: 
+        newick='{group}.nwk',
+    threads: 
+        config["tree"].get("threads") if config["tree"].get("threads") else workflow.cores
+    conda:
+        ENVS / "usher.yaml"
+    log:
+        LOGS / "tree" / "extract_tree.{group}.log"
+    shell: 
+        """
+        matUtils extract -i {input.tree} -t {output.newick} 2>&1 | tee {log}
+        """
