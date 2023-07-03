@@ -1,0 +1,6 @@
+__pycache__
+.snakemake
+logs
+test.nwk
+.DS_Store
+.env

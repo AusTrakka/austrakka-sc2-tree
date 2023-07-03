@@ -1,0 +1,19 @@
+logo: at-covid-tree
+tagline: A pipeline for building the AusTrakka national covid tree 
+font: Slant
+annotations: 
+    fasta: 
+        type: Path
+        help: "Fasta file to build tree from"
+        required: True
+    lineage:
+        threads:
+            type: int
+            help: "Number of threads to use for lineage calling."
+        unreleased:
+            type: bool
+            help: "Whether to use unreleased nextclade version."
+    tree:
+        threads:
+            type: int
+            help: "Number of threads to use for tree building."

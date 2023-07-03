@@ -1,0 +1,20 @@
+configfile: "config/config.yaml"
+
+SNAKEFILE = Path(workflow.main_snakefile).resolve()
+WORKFLOW = SNAKEFILE.parent
+RULES = WORKFLOW / "rules"
+ENVS = WORKFLOW / "envs"
+SCRIPTS = WORKFLOW / "scripts"
+RESULTS = Path("results").resolve()
+LOGS = Path("logs").resolve()
+RESOURCES = WORKFLOW.parent / "resources"
+
+include: RULES / "lineage.smk"
+include: RULES / "tree.smk"
+
+fasta_path = Path(config["fasta"]).resolve()
+fasta = fasta_path.stem
+
+rule all:
+    input:
+        expand("{group}.nwk", group=fasta)

@@ -1,3 +1,0 @@
-[submodule "src/austrakka_covid_tree/pipeline"]
-	path = src/austrakka_covid_tree/pipeline
-	url = https://github.com/AusTrakka/austrakka-covid-tree-pipeline.git
