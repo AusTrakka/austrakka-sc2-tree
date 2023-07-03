@@ -16,10 +16,11 @@
 pip install austrakka-covid-tree
 ```
 
-## Usage 
+## CLI 
 
-`--base-tree` - if base tree is provided samples will be append to the base tree using usher. 
+![](docs/images/cli.png)
 
+![](docs/images/run_cli.png)
 
 ## License
 
