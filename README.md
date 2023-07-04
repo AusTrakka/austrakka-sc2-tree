@@ -22,6 +22,10 @@ pip install austrakka-covid-tree
 
 ![](docs/images/run_cli.png)
 
+## Pipeline
+
+![](docs/images/dag.png)
+
 ## License
 
 `austrakka-covid-tree` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
