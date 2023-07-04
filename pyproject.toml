@@ -43,6 +43,9 @@ path = "src/austrakka_covid_tree/__about__.py"
 dependencies = [
   "coverage[toml]>=6.5",
   "pytest",
+  "snakedoc",
+  "Sphinx>=5,<7",
+  "sphinx-immaterial>=0.8.0",
 ]
 [tool.hatch.envs.default.env-vars]
 AT_URI = "https://legacyapi.austrakka.net"
@@ -58,6 +61,7 @@ cov = [
   "test-cov",
   "cov-report",
 ]
+docs = "sphinx-build docs/source docs/build/html"
 
 [[tool.hatch.envs.all.matrix]]
 python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
