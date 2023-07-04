@@ -29,7 +29,7 @@ rule alignment_to_vcf:
         ENVS / "usher.yaml"
     shell:
         """
-        if ! grep -q "{params.reference_id}" "{input.alignment}"; then
+        if ! grep -q "^>{params.reference_id}$" "{input.alignment}"; then
             echo "Reference sequence {params.reference_id} not found in alignment {input.alignment}"
             echo "Adding reference sequence to alignment"
             cat {params.reference_sequence} >> {input.alignment}
@@ -56,7 +56,7 @@ rule get_starting_tree:
     output:
         tree=temp('{group}.starting.nwk')
     params:
-        starting=config["tree"].get("starting", False)
+        starting=1 if config.get('starting', False) else 0
     conda:
         ENVS / "usher.yaml"
     shell:
