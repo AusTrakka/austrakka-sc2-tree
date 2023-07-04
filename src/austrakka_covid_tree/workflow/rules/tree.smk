@@ -61,7 +61,7 @@ rule get_starting_tree:
         ENVS / "usher.yaml"
     shell:
         """
-        if {params.starting}; then
+        if [ {params.starting} = 1 ]
             cp {params.starting} {output.tree}
         else 
             echo "()" > {output.tree}
