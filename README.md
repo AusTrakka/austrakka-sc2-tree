@@ -6,8 +6,10 @@
 -----
 
 **Table of Contents**
-
+- [Documentation](https://austrakka.github.io/austrakka-covid-tree/)
 - [Installation](#installation)
+- [CLI](#cli)
+- [Pipeline](#pipeline)
 - [License](#license)
 
 ## Installation
