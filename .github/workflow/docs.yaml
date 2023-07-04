@@ -29,9 +29,7 @@ jobs:
         run: touch docs/build/html/.nojekyll
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@v4.4.0
-        if: ${{ github.event_name == 'push' }}
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
           folder: docs/build/html
