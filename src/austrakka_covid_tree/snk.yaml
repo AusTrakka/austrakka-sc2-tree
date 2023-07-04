@@ -15,6 +15,9 @@ annotations:
     starting_tree:
         type: Path
         help: "Starting tree to use for tree building."
+    filter:
+        type: List[str]
+        help: "Filters to apply to the sequences before tree building."
     lineage:
         pango_collapse_url:
             type: str

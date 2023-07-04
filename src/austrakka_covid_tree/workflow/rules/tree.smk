@@ -1,6 +1,6 @@
 rule alignment_to_vcf:
     input:
-        alignment=rules.nextclade.output.alignment,
+        alignment=rules.filter.output.alignment_filtered,
     output:
         masked_vcf=temp('{group}.masked.vcf')
     params:

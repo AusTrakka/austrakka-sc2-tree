@@ -2,6 +2,8 @@ fasta: null
 outdir: null
 dated: False
 starting_tree: null
+filter: 
+  - "Coverage >= 90"
 tree: 
   threads: null
 lineage:

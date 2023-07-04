@@ -1,17 +1,24 @@
-rule filiter_csv:
+rule filter:
     input:
-        csv_file = "data/iris.csv"
+        alignment=rules.nextclade.output.alignment,
+        at_matadata_tsv=rules.rename_columns.output.at_matadata_tsv,
     output:
-        iris = "data/iris.csv"
+        alignment_filtered = temp("{group}.filtered.afa"),
+        metadata_filtered = temp("{group}.filtered.tsv"),
+    params:
+        id_column = "Seq_ID",
+        query = " & ".join(config['filter'])
     conda:
-        ENVS / "csvtk.yaml"
+        ENVS / "nextstrain.yaml"
+    log:
+        LOGS / "filter" / "filter.{group}.log"
     shell:
-        """
-        JUST_GOOD := \
-            csvtk grep -f Species_expected -p 'SARS-CoV-2' \
-        | csvtk grep -f Seq_QC -p 'PASS' \
-        | csvtk grep -f Seq_category -p 'SEQ' \
-        | csvtk grep -f Case_status -v -r -p 'eject'
-
-        JUST_AU := csvtk grep -f Country -p Australia
-        """
+        '''
+        augur filter \
+            --sequences {input.alignment} \
+            --metadata {input.at_matadata_tsv} \
+            --metadata-id-columns {params.id_column} \
+            --query "{params.query}" \
+            --output {output.alignment_filtered} \
+            --output-metadata {output.metadata_filtered}  2>&1 | tee {log}
+        '''

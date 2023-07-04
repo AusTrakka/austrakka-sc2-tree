@@ -25,4 +25,5 @@ rule all:
         metadata=expand("{group}.metadata.tsv", group=name),
 
 include: RULES / "lineage.smk"
+include: RULES / "filter.smk"
 include: RULES / "tree.smk"
