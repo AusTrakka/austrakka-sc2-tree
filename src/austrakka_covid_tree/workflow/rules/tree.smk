@@ -56,15 +56,15 @@ rule get_starting_tree:
     output:
         tree=temp('{group}.starting.nwk')
     params:
-        starting=1 if config.get('starting', False) else 0
+        starting=config.get('starting_tree') if config.get('starting_tree', False) else 0
     conda:
         ENVS / "usher.yaml"
     shell:
         """
-        if [ {params.starting} = 1 ]
-            cp {params.starting} {output.tree}
-        else 
+        if [ {params.starting} = 0 ]; then
             echo "()" > {output.tree}
+        else
+            cp {params.starting} {output.tree}
         fi
         """
 
