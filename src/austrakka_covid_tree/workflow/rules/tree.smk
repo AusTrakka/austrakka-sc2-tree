@@ -25,6 +25,7 @@ rule alignment_to_vcf:
         mask = RESOURCES / "problematic_sites_sarsCov2.vcf",
         reference_sequence = RESOURCES / "MN908947.3.fna",
         reference_id = "MN908947.3",
+        include_reference = 1 if config["tree"].get("include_reference", True) else 0
     conda:
         ENVS / "usher.yaml"
     shell:
@@ -32,6 +33,9 @@ rule alignment_to_vcf:
         if ! grep -q "^>{params.reference_id}$" "{input.alignment}"; then
             echo "Reference sequence {params.reference_id} not found in alignment {input.alignment}"
             echo "Adding reference sequence to alignment"
+            cat {params.reference_sequence} >> {input.alignment}
+        fi
+        if [ ! -f {params.include_reference} ]; then
             cat {params.reference_sequence} >> {input.alignment}
         fi
         faToVcf -maskSites={params.mask} -ref={params.reference_id} {input.alignment} {output.masked_vcf}
@@ -101,18 +105,21 @@ rule usher:
     output: 
         tree=temp('{group}.tree.pb'),
     params:
-        reference = RESOURCES / "MN908947.3.fna"
+        batch_size_per_process=config["tree"].get("batch_size_per_process", 10),
+        optimization_radius=config["tree"].get("optimization_radius", 0),
     threads: 
-        config["tree"].get("threads") if config["tree"].get("threads") else workflow.cores
+        workflow.cores if config["tree"].get("threads") == 'auto' else config["tree"].get("threads") 
     conda:
         ENVS / "usher.yaml"
     log:
        LOGS / "tree" / "usher.{group}.log"
     shell: 
         """
-        usher \
+        usher-sampled \
           --threads {threads} \
-          --collapse-tree \
+          --optimization_radius {params.optimization_radius} \
+          --batch_size_per_process {params.batch_size_per_process} \
+          --sort-before-placement-3 \
           --tree {input.starting_tree} \
           --vcf {input.vcf} \
           -d {resources.tmpdir} \

@@ -40,3 +40,6 @@ annotations:
             help: >
                 The search radius for optimization when parsimony score increase exceeds the threshold. 
                 Set to 0 to disable optimization. Only newly placed samples and nodes within this radius will be searched
+        include_reference:
+            type: bool
+            help: "Whether to include the reference sequence in the tree."
