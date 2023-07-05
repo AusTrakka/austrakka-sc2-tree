@@ -2,7 +2,7 @@ import pandas as pd
 
 df = pd.read_csv(snakemake.input.nextclade_tsv, sep='\t')
 df = df.rename(columns={
-    "seqName": "Seq_ID", 
+    "seqName": "Seq_ID",
     "clade": "Clade",
     "Nextclade_pango": "Lineage",
     "coverage": "Coverage",
