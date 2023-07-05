@@ -83,7 +83,6 @@ rule nextclade:
             -j {threads} \
             -D {input.nextclade_data_dir} \
             --input-ref {params.reference_sequence} \
-            --include-reference \
             --output-tsv {output.nextclade_tsv} \
             --output-fasta {output.alignment} \
             {input.fasta}  2>&1 | tee {log}
