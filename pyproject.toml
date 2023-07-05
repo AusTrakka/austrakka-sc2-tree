@@ -62,6 +62,7 @@ cov = [
   "cov-report",
 ]
 docs = "sphinx-build docs/source docs/build/html"
+release = "gh release create v$(hatch version)"
 
 [[tool.hatch.envs.all.matrix]]
 python = ["3.7", "3.8", "3.9", "3.10", "3.11"]
