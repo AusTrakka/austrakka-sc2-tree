@@ -32,3 +32,11 @@ annotations:
         threads:
             type: int
             help: "Number of threads to use for tree building."
+        batch_size_per_process:
+            type: int
+            help: "Number of sequences to process per thread."
+        optimization_radius:
+            type: int
+            help: >
+                The search radius for optimization when parsimony score increase exceeds the threshold. 
+                Set to 0 to disable optimization. Only newly placed samples and nodes within this radius will be searched
