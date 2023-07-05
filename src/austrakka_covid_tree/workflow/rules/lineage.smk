@@ -69,6 +69,8 @@ rule nextclade:
     output:
         nextclade_tsv=temp("{group}.nextclade.tsv"),
         alignment=temp("{group}.nextclade.afa")
+    params:
+        reference_sequence = RESOURCES / "MN908947.3.fna",
     threads:
         config["lineage"].get("threads") if config["lineage"].get("threads") else workflow.cores
     conda:
@@ -80,6 +82,8 @@ rule nextclade:
         nextclade run \
             -j {threads} \
             -D {input.nextclade_data_dir} \
+            --input-ref {params.reference_sequence} \
+            --include-reference \
             --output-tsv {output.nextclade_tsv} \
             --output-fasta {output.alignment} \
             {input.fasta}  2>&1 | tee {log}
