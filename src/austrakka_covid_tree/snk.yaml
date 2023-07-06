@@ -30,7 +30,7 @@ annotations:
     lineage:
         threads:
             type: int
-            help: "Number of threads to use for lineage calling."
+            help: "Number of threads to use for lineage calling. If None will use `--cores`."
         pango_collapse_url:
             type: str
             help: "URL to pango collapse file."
@@ -40,7 +40,7 @@ annotations:
     tree:
         threads:
             type: int
-            help: "Number of threads to use for tree building."
+            help: "Number of threads to use for tree building. If None will use `--cores`."
         batch_size_per_process:
             type: int
             help: "Number of sequences to process per thread."

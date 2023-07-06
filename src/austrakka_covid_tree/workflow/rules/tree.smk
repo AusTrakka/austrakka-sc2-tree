@@ -1,3 +1,5 @@
+THREADS = config["tree"].get("threads") if config["tree"].get("threads") else workflow.cores
+
 rule alignment_to_vcf:
     """
     Converts the given alignment to vcf format and applies a mask to problematic sites.
@@ -108,7 +110,7 @@ rule usher:
         batch_size_per_process=config["tree"].get("batch_size_per_process", 10),
         optimization_radius=config["tree"].get("optimization_radius", 0),
     threads: 
-        workflow.cores if config["tree"].get("threads") == 'auto' else config["tree"].get("threads") 
+        THREADS
     conda:
         ENVS / "usher.yaml"
     log:
@@ -153,7 +155,7 @@ rule matOptimize:
     output: 
         optimized_tree=temp('{group}.optimized.pb')
     threads: 
-        config["tree"].get("threads") if config["tree"].get("threads") else workflow.cores
+        THREADS
     conda:
         ENVS / "usher.yaml"
     log:
@@ -193,7 +195,7 @@ rule extract_tree:
     output: 
         newick='{group}.nwk',
     threads: 
-        config["tree"].get("threads") if config["tree"].get("threads") else workflow.cores
+        THREADS
     conda:
         ENVS / "usher.yaml"
     log:
