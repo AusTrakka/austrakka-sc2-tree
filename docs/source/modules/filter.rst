@@ -9,5 +9,5 @@ This module contains the rules to filter the sequences and metadata.
 
 Rules
 -----
-.. smk:autodoc:: ../../src/austrakka_covid_tree/workflow/Snakefile filter
+.. smk:autodoc:: ../../src/austrakka_covid_tree/workflow/Snakefile filter_nextclade
   :configfile: config.yaml

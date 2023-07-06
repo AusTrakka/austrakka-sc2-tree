@@ -1,13 +1,19 @@
 fasta: ../../tests/data/test.fasta
 outdir: null
+mat: True
 dated: False
 starting_tree: null
 filter: 
-  - "Coverage >= 90"
+  nextclade:
+    - "Coverage >= 90"
 tree: 
   threads: null
+  batch_size_per_process: 10
+  optimization_radius: 0
+  include_reference: True
 lineage:
-  pango_collapse_url: https://raw.githubusercontent.com/MDU-PHL/pango-collapse/main/pango_collapse/collapse.txt
   threads: null
+  pango_collapse_url: https://raw.githubusercontent.com/MDU-PHL/pango-collapse/main/pango_collapse/collapse.txt
   unreleased: False
+
 
