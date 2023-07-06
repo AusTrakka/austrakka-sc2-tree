@@ -1,9 +1,11 @@
 fasta: null
 outdir: null
+mat: True
 dated: False
 starting_tree: null
 filter: 
-  - "Coverage >= 90"
+  nextclade:
+    - "Coverage >= 90"
 tree: 
   threads: null
   batch_size_per_process: 10

@@ -18,7 +18,7 @@ rule alignment_to_vcf:
         command, applying a mask to problematic sites. The problematic sites are defined in the provided mask vcf file.
     """
     input:
-        alignment=rules.filter.output.alignment_filtered,
+        alignment=rules.filter_nextclade.output.alignment_filtered,
     output:
         masked_vcf=temp('{group}.masked.vcf')
     params:
@@ -103,7 +103,7 @@ rule usher:
         vcf=rules.alignment_to_vcf.output.masked_vcf,
         starting_tree=rules.get_starting_tree.output.tree,
     output: 
-        tree=temp('{group}.tree.pb'),
+        tree='{group}.pb' if config["mat"] else temp('{group}.pb')
     params:
         batch_size_per_process=config["tree"].get("batch_size_per_process", 10),
         optimization_radius=config["tree"].get("optimization_radius", 0),

@@ -1,7 +1,0 @@
-channels:                                                                                                                                                                   
-  - bioconda                                                                                                                                                                
-  - conda-forge                                                                                                                                                             
-dependencies:                                                                                                                                                               
-  - python=3.9                                                                                                                                                              
-  - pip:                                                                                                                                                                    
-    - austrakka==0.29.1

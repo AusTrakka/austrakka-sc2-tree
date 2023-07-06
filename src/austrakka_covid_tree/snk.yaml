@@ -6,28 +6,37 @@ annotations:
         type: Path
         help: "Fasta file to build tree from"
         required: True
+    starting_tree:
+        type: Path
+        help: > 
+            Starting tree to use for tree building (pb or newick).
+            If newick, all samples in tree must be in the fasta file.
+            If not provided, the tree will be built from scratch.
     outdir:
         type: Path
-        help: "Output directory for tree and metadata."
+        help: >
+            Output directory for tree and metadata.
+            If not provided, output will be written to the current directory.
+    mat:
+        type: bool
+        help: "Whether to include Mutation Annotation Tree file in the output."
     dated:
         type: bool
         help: "Whether to include timestamp in the output."
-    starting_tree:
-        type: Path
-        help: "Starting tree to use for tree building."
     filter:
-        type: List[str]
-        help: "Filters to apply to the sequences before tree building."
+        nextclade:
+            type: List[str]
+            help: "Filters to apply to the sequences before tree building."
     lineage:
-        pango_collapse_url:
-            type: str
-            help: "URL to pango collapse file."
         threads:
             type: int
             help: "Number of threads to use for lineage calling."
+        pango_collapse_url:
+            type: str
+            help: "URL to pango collapse file."
         unreleased:
             type: bool
-            help: "Whether to use unreleased nextclade version."
+            help: "Whether to use the unreleased nextclade_data version."
     tree:
         threads:
             type: int
@@ -38,8 +47,8 @@ annotations:
         optimization_radius:
             type: int
             help: >
-                The search radius for optimization when parsimony score increase exceeds the threshold. 
-                Set to 0 to disable optimization. Only newly placed samples and nodes within this radius will be searched
+                The search radius for optimization when parsimony score increase exceeds the threshold.
+                Set to 0 to disable optimization. Only newly placed samples and nodes within this radius will be searched.
         include_reference:
             type: bool
             help: "Whether to include the reference sequence in the tree."
