@@ -1,6 +1,35 @@
-rule filter:
+# rule filter_metadata:
+#     """
+#     Filters the in fasta and metadata files based on a specific query.
+#     """
+#     input:
+#         fasta = config["fasta"],
+#         metadata = config["data"],
+#     output:
+#         fasta_filtered = temp("{group}.filtered.fasta"),
+#         metadata_filtered = temp("{group}.filtered.tsv"),
+#     params:
+#         id_column = "Seq_ID",
+#         query = " & ".join(config['filter'].get("metadata"))
+#     conda:
+#         ENVS / "nextstrain.yaml"
+#     log:
+#         LOGS / "filter" / "filter_metadata.{group}.log"
+#     shell:
+#         '''
+#         augur filter \
+#             --sequences {input.fasta} \
+#             --metadata {input.metadata} \
+#             --metadata-id-columns {params.id_column} \
+#             --query "{params.query}" \
+#             --output {output.alignment_filtered} \
+#             --output-metadata {output.metadata_filtered} \
+#             --output-log {log}
+#         '''
+
+rule filter_nextclade:
     """
-    Filters the input alignment and metadata files based on a specific query.
+    Filters the nextcalde alignment and linage files based on a specific query.
     
     .. note::
         The exact filter query is specified in the configuration file (config['filter']).
@@ -30,11 +59,11 @@ rule filter:
         metadata_filtered = temp("{group}.filtered.tsv"),
     params:
         id_column = "Seq_ID",
-        query = " & ".join(config['filter'])
+        query = " & ".join(config['filter'].get("nextclade"))
     conda:
         ENVS / "nextstrain.yaml"
     log:
-        LOGS / "filter" / "filter.{group}.log"
+        LOGS / "filter" / "filter_nextclade.{group}.log"
     shell:
         '''
         augur filter \
@@ -43,5 +72,6 @@ rule filter:
             --metadata-id-columns {params.id_column} \
             --query "{params.query}" \
             --output {output.alignment_filtered} \
-            --output-metadata {output.metadata_filtered}  2>&1 | tee {log}
+            --output-metadata {output.metadata_filtered} \
+            --output-log {log}
         '''
