@@ -180,12 +180,15 @@ rule extract_tree:
     input:
         tree=rules.matOptimize.output.optimized_tree,
     output: 
-        newick='{outdir}/{name}.nwk',
+        newick="{outdir}/{name}.nwk",
+    params:
+        newick="{name}.nwk",
+        outdir="{outdir}",
     threads: 
         THREADS
     conda:
         ENVS / "usher.yaml"
     shell: 
         """
-        matUtils extract -i {input.tree} -t {output.newick}
+        matUtils extract -i {input.tree} -d {params.outdir} -t {params.newick}
         """
