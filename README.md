@@ -18,11 +18,22 @@
 pip install austrakka-covid-tree
 ```
 
+## Usage
+
+```bash
+austrakka-covid-tree run \
+    --fasta tests/data/test.fasta \
+    --data tests/data/test.metadata.csv \
+    --days-ago 200 \
+    --outdir results \
+    --name sc2 \
+    --tree-threads 8 \
+    --dated
+```
+
 ## CLI 
 
 ![](docs/images/cli.png)
-
-![](docs/images/run_cli.png)
 
 ## Pipeline
 
