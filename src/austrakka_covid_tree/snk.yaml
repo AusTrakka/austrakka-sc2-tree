@@ -30,6 +30,18 @@ annotations:
         help: >
             Output directory for tree and metadata.
             If not provided, output will be written to the current directory.
+    min_date:
+        default: null
+        type: str
+        help: "Minimum date to filter sequences by."
+    max_date:
+        default: null
+        type: str
+        help: "Maximum date to filter sequences by."
+    days_ago:
+        default: null
+        type: int
+        help: "Number of days ago to filter sequences by."
     mat:
         default: false
         type: bool
@@ -43,12 +55,11 @@ annotations:
             default: 
                 - "Coverage >= 90"
             type: List[str]
-            help: "Filters to apply to the sequences before tree building."
+            help: "Filters to apply to the nextclade results."
         data: 
-            default: 
-                - "country == 'Australia'"
+            default: null
             type: List[str]
-            help: "Filters to apply to the metadata before tree building."
+            help: "Filters to apply to the metadata."
     lineage:
         threads:
             default: null

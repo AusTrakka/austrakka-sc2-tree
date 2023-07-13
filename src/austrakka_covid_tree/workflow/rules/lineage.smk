@@ -55,7 +55,7 @@ rule nextclade:
         stored in a FASTA file. The standard error and output from the command are logged in the specified log file.
     """
     input:
-        fasta = config["fasta"],
+        fasta = "{outdir}/{name}.filtered.fasta" if config.get("data") else config["fasta"],
         nextclade_data_dir = "nextclade_data_dir"
     output:
         nextclade_tsv=temp("{outdir}/{name}.nextclade.raw.tsv"),
