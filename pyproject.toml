@@ -25,7 +25,7 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "snk>=0.9.3",
+  "snk>=0.10.1",
 ]
 
 [project.urls]
