@@ -6,24 +6,18 @@ rule download_nextclade_db:
 
     :conda:                    Path to the Conda environment file (nextclade.yaml) in the ENVS directory.
 
-    :log:                      Log file path in the "lineage" subdirectory of the LOGS directory. The filename is 
-                               structured as "download_nextclade_db.log".
-
     :param download_unreleased_tree: Flag to determine whether to download the unreleased Nextclade tree. Set to 1 if 
                                      'use_unreleased_nextclade' is set to True in the configuration, otherwise 0.
 
     .. note::
         This rule uses the 'nextclade dataset get' command to download the latest Nextclade database for SARS-CoV-2. 
         If 'use_unreleased_nextclade' is set to True in the configuration, it also downloads the unreleased Nextclade 
-        tree from the Nextstrain staging area. All actions and any potential error messages are logged in the specified 
-        log file.
+        tree from the Nextstrain staging area.
     """
     output:
         temp(directory("nextclade_data_dir"))
     conda:
         ENVS / "nextclade.yaml"
-    log:
-        LOGS / "lineage" / "download_nextclade_db.log"
     params:
         download_unreleased_tree=1 if config.get('use_unreleased_nextclade', False) else 0
     shell:
@@ -31,10 +25,10 @@ rule download_nextclade_db:
         nextclade dataset get \
             --verbose \
             --name 'sars-cov-2' \
-            --output-dir {output} > {log}
+            --output-dir {output}
         if [ {params.download_unreleased_tree} = 1 ]
         then
-            echo "Using unreleased Nextclade tree!" >> {log}
+            echo "Using unreleased Nextclade tree!"
             wget https://nextstrain.org/charon/getDataset?prefix=staging/nextclade/sars-cov-2 -O {output}/tree.json
         fi
         """
@@ -55,9 +49,6 @@ rule nextclade:
 
     :conda:                    Path to the Conda environment file (nextclade.yaml) in the ENVS directory.
 
-    :log:                      Log file path in the "lineage" subdirectory of the LOGS directory. The filename is 
-                               structured as "nextclade.{name}.log".
-
     .. note::
         This rule uses the 'nextclade run' command to call lineages for the input genome sequences. It uses the downloaded 
         Nextclade database for this purpose. The lineage calls are stored in a TSV file, and the aligned sequences are 
@@ -67,16 +58,14 @@ rule nextclade:
         fasta = config["fasta"],
         nextclade_data_dir = "nextclade_data_dir"
     output:
-        nextclade_tsv=temp("{outdir}/{name}.nextclade.tsv"),
-        alignment=temp("{outdir}/{name}.nextclade.afa")
+        nextclade_tsv=temp("{group}.nextclade.tsv"),
+        alignment=temp("{group}.nextclade.afa")
     params:
         reference_sequence = RESOURCES / "MN908947.3.fna",
     threads:
         config["lineage"].get("threads") if config["lineage"].get("threads") else workflow.cores
     conda:
         ENVS / "nextclade.yaml"
-    log:
-        LOGS / "lineage" / "nextclade.{name}.log"
     shell:
         """
         nextclade run \
@@ -85,7 +74,7 @@ rule nextclade:
             --input-ref {params.reference_sequence} \
             --output-tsv {output.nextclade_tsv} \
             --output-fasta {output.alignment} \
-            {input.fasta}  2>&1 | tee {log}
+            {input.fasta}
         """
 
 rule collapse_lineages:
@@ -102,7 +91,7 @@ rule collapse_lineages:
 
     :conda:                    Path to the Conda environment file (pango_collapse.yaml) in the ENVS directory.
 
-    :log:                      Log file path in the "lineage" subdirectory of the LOGS directory. The filename is 
+
                                structured as "collapse_lineages.{name}.log".
 
     .. note::
@@ -113,16 +102,14 @@ rule collapse_lineages:
     input:
         nextclade_tsv=rules.nextclade.output.nextclade_tsv
     output:
-        nextclade_collapsed_tsv=temp("{outdir}/{name}.nextclade.collapsed.tsv")
+        nextclade_collapsed_tsv=temp("{group}.nextclade.collapsed.tsv")
     params:
         url=config["lineage"].get("pango_collapse_url", "https://raw.githubusercontent.com/MDU-PHL/pango-collapse/main/pango_collapse/collapse.txt")
     conda:
         ENVS / "pango_collapse.yaml"
-    log:
-        LOGS / "lineage" / "collapse_lineages.{name}.log"
     shell:
         """
-        pango-collapse -l Nextclade_pango --latest --url {params.url} -o {output} {input} 2>&1 | tee {log}
+        pango-collapse -l Nextclade_pango --latest --url {params.url} -o {output} {input}
         """
 
 rule mask_lineages:
@@ -135,9 +122,6 @@ rule mask_lineages:
 
     :conda:                    Path to the Conda environment file (python.yaml) in the ENVS directory.
 
-    :log:                      Log file path in the "lineage" subdirectory of the LOGS directory. The filename is 
-                               structured as "mask_lineages.{name}.log".
-
     :script:                   Python script (mask_lineages.py) in the SCRIPTS directory that is run to mask 'Unassigned' 
                                and 'LowCoverage' lineage calls.
 
@@ -149,11 +133,9 @@ rule mask_lineages:
     input:
         nextclade_tsv=rules.collapse_lineages.output.nextclade_collapsed_tsv
     output:
-        masked_nextclade_tsv=temp("{outdir}/{name}.nextclade.masked.tsv")
+        masked_nextclade_tsv=temp("{group}.nextclade.masked.tsv")
     conda:
         ENVS / "python.yaml"
-    log:
-        LOGS / "lineage" / "mask_lineages.{name}.log"
     script:
         SCRIPTS / "mask_lineages.py"
 
@@ -178,7 +160,7 @@ rule rename_columns:
     input:
         nextclade_tsv=rules.mask_lineages.output.masked_nextclade_tsv
     output:
-        at_matadata_tsv="{outdir}/{name}.metadata.tsv",
+        at_matadata_tsv="{group}.metadata.tsv",
     conda:
         ENVS / "python.yaml"
     script:

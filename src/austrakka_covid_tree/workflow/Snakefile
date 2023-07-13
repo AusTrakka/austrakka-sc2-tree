@@ -13,7 +13,7 @@ if config.get("dated"):
     name = f"{datetime.datetime.now().strftime('%Y-%m-%dT%H%M%S.%f')}.{name}"
 
 outdir = Path(config["outdir"]).resolve()
- 
+
 rule all:
     input:
         tree=expand("{outdir}/{name}.nwk", name=name, outdir=outdir),

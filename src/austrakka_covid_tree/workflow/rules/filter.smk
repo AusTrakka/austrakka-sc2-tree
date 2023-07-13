@@ -13,8 +13,6 @@
 #         query = " & ".join(config['filter'].get("metadata"))
 #     conda:
 #         ENVS / "nextstrain.yaml"
-#     log:
-#         LOGS / "filter" / "filter_metadata.{name}.log"
 #     shell:
 #         '''
 #         augur filter \
@@ -23,8 +21,7 @@
 #             --metadata-id-columns {params.id_column} \
 #             --query "{params.query}" \
 #             --output {output.alignment_filtered} \
-#             --output-metadata {output.metadata_filtered} \
-#             --output-log {log}
+#             --output-metadata {output.metadata_filtered}
 #         '''
 
 rule filter_nextclade:
@@ -46,8 +43,6 @@ rule filter_nextclade:
 
     :conda:                       the environment used for this rule, specified by the "nextstrain.yaml" file in the "ENVS" directory.
 
-    :log:                         the log file for this rule, located in the "LOGS/filter" directory. The log file is named "filter.{name}.log", where "{outdir}/{name}" is a wildcard representing the group of the sequences being processed.
-
     The rule is implemented by the 'augur filter' command, which takes the input alignment and metadata files, 
     applies the specified filtering query, and outputs the filtered alignment and metadata files.
     """
@@ -62,8 +57,6 @@ rule filter_nextclade:
         query = " & ".join(config['filter'].get("nextclade"))
     conda:
         ENVS / "nextstrain.yaml"
-    log:
-        LOGS / "filter" / "filter_nextclade.{name}.log"
     shell:
         '''
         augur filter \
@@ -72,6 +65,5 @@ rule filter_nextclade:
             --metadata-id-columns {params.id_column} \
             --query "{params.query}" \
             --output {output.alignment_filtered} \
-            --output-metadata {output.metadata_filtered} \
-            --output-log {log}
+            --output-metadata {output.metadata_filtered}
         '''

@@ -97,9 +97,6 @@ rule usher:
 
     :conda:                   Path to the Conda environment file (usher.yaml) in the ENVS directory.
 
-    :log:                     Log file path in the "tree" subdirectory of the LOGS directory. The filename is 
-                            structured as "usher.{name}.log".
-
     """
     input:
         vcf=rules.alignment_to_vcf.output.masked_vcf,
@@ -113,8 +110,6 @@ rule usher:
         THREADS
     conda:
         ENVS / "usher.yaml"
-    log:
-       LOGS / "tree" / "usher.{name}.log"
     shell: 
         """
         usher-sampled \
@@ -125,7 +120,7 @@ rule usher:
           --tree {input.starting_tree} \
           --vcf {input.vcf} \
           -d {resources.tmpdir} \
-          --save-mutation-annotated-tree {output.tree} 2>&1 | tee {log}
+          --save-mutation-annotated-tree {output.tree}
         """
 
 rule matOptimize:
@@ -142,9 +137,6 @@ rule matOptimize:
 
     :conda:                    Path to the Conda environment file (usher.yaml) in the ENVS directory.
 
-    :log:                      Log file path in the "tree" subdirectory of the LOGS directory. The filename is 
-                               structured as "matOptimize.{name}.log".
-
     .. note::
         The matOptimize command is used to optimize an input MAT by improving the parsimony score. The tool does not 
         write intermediate files during optimization (--do-not-write-intermediate-files option). The standard error and 
@@ -158,15 +150,13 @@ rule matOptimize:
         THREADS
     conda:
         ENVS / "usher.yaml"
-    log:
-        LOGS / "tree" / "matOptimize.{name}.log"
     shell: 
         """
         matOptimize \
           --threads {threads} \
           --do-not-write-intermediate-files \
           -i {input.tree} \
-          -o {output.optimized_tree} 2>&1 | tee {log}
+          -o {output.optimized_tree}
         """
 
 rule extract_tree:
@@ -183,9 +173,6 @@ rule extract_tree:
 
     :conda:                    Path to the Conda environment file (usher.yaml) in the ENVS directory.
 
-    :log:                      Log file path in the "tree" subdirectory of the LOGS directory. The filename is 
-                               structured as "extract_tree.{name}.log".
-
     .. note::
         The matUtils extract command is used to extract a tree from the input MAT and write it in Newick format. The 
         standard error and output from the command are logged in the specified log file.
@@ -198,9 +185,7 @@ rule extract_tree:
         THREADS
     conda:
         ENVS / "usher.yaml"
-    log:
-        LOGS / "tree" / "extract_tree.{name}.log"
     shell: 
         """
-        matUtils extract -i {input.tree} -t {output.newick} 2>&1 | tee {log}
+        matUtils extract -i {input.tree} -t {output.newick}
         """
