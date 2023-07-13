@@ -10,4 +10,4 @@ df = df.rename(columns={
     "qc.overallStatus": "NC_qc.overallStatus",
 })
 df.drop(columns=["index"], inplace=True)
-df.to_csv(snakemake.output.at_matadata_tsv, sep='\t', index=False)
+df.to_csv(snakemake.output.formated_tsv, sep='\t', index=False)

@@ -7,3 +7,5 @@ test.nwk
 test.metadata.tsv
 results
 docs/build
+test.nextclade.tsv
+tests/data/metadata.csv

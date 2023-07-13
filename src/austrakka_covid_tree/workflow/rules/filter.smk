@@ -33,25 +33,25 @@ rule filter_nextclade:
         Ensure that it is a valid query for the 'augur filter' command.
 
     :input alignment:         the aligned fasta file output from the previous 'nextclade' rule.
-    :input at_matadata_tsv:   the metadata file with renamed columns from the previous 'rename_columns' rule.
+    :input at_matadata_tsv:   the nextclade file with renamed columns from the previous 'rename_columns' rule.
 
     :output alignment_filtered:   the alignment file after applying the filter query.
-    :output metadata_filtered:    the metadata file after applying the filter query.
+    :output nextclade_filtered:    the nextclade file after applying the filter query.
 
-    :params id_column:            the column in the metadata file used to identify sequences.
+    :params id_column:            the column in the nextclade file used to identify sequences.
     :params query:                the filtering query to apply. This query is constructed by joining the elements of the 'filter' config with " & ".
 
     :conda:                       the environment used for this rule, specified by the "nextstrain.yaml" file in the "ENVS" directory.
 
-    The rule is implemented by the 'augur filter' command, which takes the input alignment and metadata files, 
-    applies the specified filtering query, and outputs the filtered alignment and metadata files.
+    The rule is implemented by the 'augur filter' command, which takes the input alignment and nextclade files, 
+    applies the specified filtering query, and outputs the filtered alignment and nextclade files.
     """
     input:
         alignment=rules.nextclade.output.alignment,
-        at_matadata_tsv=rules.rename_columns.output.at_matadata_tsv,
+        metadata=rules.format_nextclade.output.formated_tsv,
     output:
         alignment_filtered = temp("{outdir}/{name}.filtered.afa"),
-        metadata_filtered = temp("{outdir}/{name}.filtered.tsv"),
+        metadata_filtered = temp("{outdir}/{name}.nextclade.filtered.tsv"),
     params:
         id_column = "Seq_ID",
         query = " & ".join(config['filter'].get("nextclade"))
@@ -61,7 +61,7 @@ rule filter_nextclade:
         '''
         augur filter \
             --sequences {input.alignment} \
-            --metadata {input.at_matadata_tsv} \
+            --metadata {input.metadata} \
             --metadata-id-columns {params.id_column} \
             --query "{params.query}" \
             --output {output.alignment_filtered} \

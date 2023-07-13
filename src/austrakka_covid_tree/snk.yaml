@@ -7,6 +7,16 @@ annotations:
         type: Path
         help: "Fasta file to build tree from"
         required: True
+    data:
+        default: null
+        type: Path
+        help: "AusTrakka metadata file. Used for filtering."
+        required: False
+    name:
+        default: null
+        type: str
+        help: "Name to use for output files. Defaults to the fasta file name"
+        required: False
     starting_tree:
         default: null
         type: Path
@@ -15,7 +25,7 @@ annotations:
             If newick, all samples in tree must be in the fasta file.
             If not provided, the tree will be built from scratch.
     outdir:
-        default: .
+        default: null
         type: Path
         help: >
             Output directory for tree and metadata.
@@ -34,6 +44,11 @@ annotations:
                 - "Coverage >= 90"
             type: List[str]
             help: "Filters to apply to the sequences before tree building."
+        data: 
+            default: 
+                - "country == 'Australia'"
+            type: List[str]
+            help: "Filters to apply to the metadata before tree building."
     lineage:
         threads:
             default: null

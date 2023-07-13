@@ -58,8 +58,8 @@ rule nextclade:
         fasta = config["fasta"],
         nextclade_data_dir = "nextclade_data_dir"
     output:
-        nextclade_tsv=temp("{group}.nextclade.tsv"),
-        alignment=temp("{group}.nextclade.afa")
+        nextclade_tsv=temp("{outdir}/{name}.nextclade.raw.tsv"),
+        alignment=temp("{outdir}/{name}.nextclade.afa")
     params:
         reference_sequence = RESOURCES / "MN908947.3.fna",
     threads:
@@ -102,7 +102,7 @@ rule collapse_lineages:
     input:
         nextclade_tsv=rules.nextclade.output.nextclade_tsv
     output:
-        nextclade_collapsed_tsv=temp("{group}.nextclade.collapsed.tsv")
+        nextclade_collapsed_tsv=temp("{outdir}/{name}.nextclade.collapsed.tsv")
     params:
         url=config["lineage"].get("pango_collapse_url", "https://raw.githubusercontent.com/MDU-PHL/pango-collapse/main/pango_collapse/collapse.txt")
     conda:
@@ -133,15 +133,15 @@ rule mask_lineages:
     input:
         nextclade_tsv=rules.collapse_lineages.output.nextclade_collapsed_tsv
     output:
-        masked_nextclade_tsv=temp("{group}.nextclade.masked.tsv")
+        masked_nextclade_tsv=temp("{outdir}/{name}.nextclade.masked.tsv")
     conda:
         ENVS / "python.yaml"
     script:
         SCRIPTS / "mask_lineages.py"
 
-rule rename_columns:
+rule format_nextclade:
     """
-    Renames Nextclade columns to the AT format.
+    Nextclade output to AT format.
 
     :input nextclade_tsv:       The TSV file produced by the :smk:ref:`mask_lineages` rule, containing masked lineage call results.
 
@@ -160,8 +160,8 @@ rule rename_columns:
     input:
         nextclade_tsv=rules.mask_lineages.output.masked_nextclade_tsv
     output:
-        at_matadata_tsv="{group}.metadata.tsv",
+        formated_tsv="{outdir}/{name}.nextclade.tsv",
     conda:
         ENVS / "python.yaml"
     script:
-        SCRIPTS / "rename_columns.py"
+        SCRIPTS / "format_nextclade.py"
