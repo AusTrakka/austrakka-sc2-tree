@@ -1,4 +1,4 @@
-THREADS = config["tree"].get("threads") if config["tree"].get("threads") else workflow.cores
+THREADS = int(config["tree"].get("threads")) if config["tree"].get("threads") else workflow.cores
 
 rule alignment_to_vcf:
     """
@@ -22,7 +22,7 @@ rule alignment_to_vcf:
     input:
         alignment=rules.filter_nextclade.output.alignment_filtered,
     output:
-        masked_vcf=temp('{group}.masked.vcf')
+        masked_vcf=temp('{outdir}/{name}.masked.vcf')
     params:
         mask = RESOURCES / "problematic_sites_sarsCov2.vcf",
         reference_sequence = RESOURCES / "MN908947.3.fna",
@@ -60,7 +60,7 @@ rule get_starting_tree:
         output location.
     """
     output:
-        tree=temp('{group}.starting.nwk')
+        tree=temp('{outdir}/{name}.starting.nwk')
     params:
         starting=config.get('starting_tree') if config.get('starting_tree', False) else 0
     conda:
@@ -98,14 +98,14 @@ rule usher:
     :conda:                   Path to the Conda environment file (usher.yaml) in the ENVS directory.
 
     :log:                     Log file path in the "tree" subdirectory of the LOGS directory. The filename is 
-                            structured as "usher.{group}.log".
+                            structured as "usher.{name}.log".
 
     """
     input:
         vcf=rules.alignment_to_vcf.output.masked_vcf,
         starting_tree=rules.get_starting_tree.output.tree,
     output: 
-        tree='{group}.pb' if config["mat"] else temp('{group}.pb')
+        tree='{outdir}/{name}.pb' if config["mat"] else temp('{outdir}/{name}.pb')
     params:
         batch_size_per_process=config["tree"].get("batch_size_per_process", 10),
         optimization_radius=config["tree"].get("optimization_radius", 0),
@@ -114,7 +114,7 @@ rule usher:
     conda:
         ENVS / "usher.yaml"
     log:
-       LOGS / "tree" / "usher.{group}.log"
+       LOGS / "tree" / "usher.{name}.log"
     shell: 
         """
         usher-sampled \
@@ -143,7 +143,7 @@ rule matOptimize:
     :conda:                    Path to the Conda environment file (usher.yaml) in the ENVS directory.
 
     :log:                      Log file path in the "tree" subdirectory of the LOGS directory. The filename is 
-                               structured as "matOptimize.{group}.log".
+                               structured as "matOptimize.{name}.log".
 
     .. note::
         The matOptimize command is used to optimize an input MAT by improving the parsimony score. The tool does not 
@@ -153,13 +153,13 @@ rule matOptimize:
     input:
         tree=rules.usher.output.tree,
     output: 
-        optimized_tree=temp('{group}.optimized.pb')
+        optimized_tree=temp('{outdir}/{name}.optimized.pb')
     threads: 
         THREADS
     conda:
         ENVS / "usher.yaml"
     log:
-        LOGS / "tree" / "matOptimize.{group}.log"
+        LOGS / "tree" / "matOptimize.{name}.log"
     shell: 
         """
         matOptimize \
@@ -184,7 +184,7 @@ rule extract_tree:
     :conda:                    Path to the Conda environment file (usher.yaml) in the ENVS directory.
 
     :log:                      Log file path in the "tree" subdirectory of the LOGS directory. The filename is 
-                               structured as "extract_tree.{group}.log".
+                               structured as "extract_tree.{name}.log".
 
     .. note::
         The matUtils extract command is used to extract a tree from the input MAT and write it in Newick format. The 
@@ -193,13 +193,13 @@ rule extract_tree:
     input:
         tree=rules.matOptimize.output.optimized_tree,
     output: 
-        newick='{group}.nwk',
+        newick='{outdir}/{name}.nwk',
     threads: 
         THREADS
     conda:
         ENVS / "usher.yaml"
     log:
-        LOGS / "tree" / "extract_tree.{group}.log"
+        LOGS / "tree" / "extract_tree.{name}.log"
     shell: 
         """
         matUtils extract -i {input.tree} -t {output.newick} 2>&1 | tee {log}

@@ -6,15 +6,15 @@
 #         fasta = config["fasta"],
 #         metadata = config["data"],
 #     output:
-#         fasta_filtered = temp("{group}.filtered.fasta"),
-#         metadata_filtered = temp("{group}.filtered.tsv"),
+#         fasta_filtered = temp("{outdir}/{name}.filtered.fasta"),
+#         metadata_filtered = temp("{outdir}/{name}.filtered.tsv"),
 #     params:
 #         id_column = "Seq_ID",
 #         query = " & ".join(config['filter'].get("metadata"))
 #     conda:
 #         ENVS / "nextstrain.yaml"
 #     log:
-#         LOGS / "filter" / "filter_metadata.{group}.log"
+#         LOGS / "filter" / "filter_metadata.{name}.log"
 #     shell:
 #         '''
 #         augur filter \
@@ -46,7 +46,7 @@ rule filter_nextclade:
 
     :conda:                       the environment used for this rule, specified by the "nextstrain.yaml" file in the "ENVS" directory.
 
-    :log:                         the log file for this rule, located in the "LOGS/filter" directory. The log file is named "filter.{group}.log", where "{group}" is a wildcard representing the group of the sequences being processed.
+    :log:                         the log file for this rule, located in the "LOGS/filter" directory. The log file is named "filter.{name}.log", where "{outdir}/{name}" is a wildcard representing the group of the sequences being processed.
 
     The rule is implemented by the 'augur filter' command, which takes the input alignment and metadata files, 
     applies the specified filtering query, and outputs the filtered alignment and metadata files.
@@ -55,15 +55,15 @@ rule filter_nextclade:
         alignment=rules.nextclade.output.alignment,
         at_matadata_tsv=rules.rename_columns.output.at_matadata_tsv,
     output:
-        alignment_filtered = temp("{group}.filtered.afa"),
-        metadata_filtered = temp("{group}.filtered.tsv"),
+        alignment_filtered = temp("{outdir}/{name}.filtered.afa"),
+        metadata_filtered = temp("{outdir}/{name}.filtered.tsv"),
     params:
         id_column = "Seq_ID",
         query = " & ".join(config['filter'].get("nextclade"))
     conda:
         ENVS / "nextstrain.yaml"
     log:
-        LOGS / "filter" / "filter_nextclade.{group}.log"
+        LOGS / "filter" / "filter_nextclade.{name}.log"
     shell:
         '''
         augur filter \
