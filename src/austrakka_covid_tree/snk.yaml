@@ -3,38 +3,48 @@ tagline: A pipeline for building the AusTrakka national covid tree
 font: Slant
 annotations: 
     fasta: 
+        default: null
         type: Path
         help: "Fasta file to build tree from"
         required: True
     starting_tree:
+        default: null
         type: Path
         help: > 
             Starting tree to use for tree building (pb or newick).
             If newick, all samples in tree must be in the fasta file.
             If not provided, the tree will be built from scratch.
     outdir:
+        default: .
         type: Path
         help: >
             Output directory for tree and metadata.
             If not provided, output will be written to the current directory.
     mat:
+        default: false
         type: bool
         help: "Whether to include Mutation Annotation Tree file in the output."
     dated:
+        default: false
         type: bool
         help: "Whether to include timestamp in the output."
     filter:
         nextclade:
+            default: 
+                - "Coverage >= 90"
             type: List[str]
             help: "Filters to apply to the sequences before tree building."
     lineage:
         threads:
+            default: null
             type: int
             help: "Number of threads to use for lineage calling. If None will use `--cores`."
         pango_collapse_url:
+            default: https://raw.githubusercontent.com/MDU-PHL/pango-collapse/main/pango_collapse/collapse.txt
             type: str
             help: "URL to pango collapse file."
         unreleased:
+            default: false
             type: bool
             help: "Whether to use the unreleased nextclade_data version."
     tree:
@@ -42,13 +52,16 @@ annotations:
             type: int
             help: "Number of threads to use for tree building. If None will use `--cores`."
         batch_size_per_process:
+            default: 10
             type: int
             help: "Number of sequences to process per thread."
         optimization_radius:
+            default: 0
             type: int
             help: >
                 The search radius for optimization when parsimony score increase exceeds the threshold.
                 Set to 0 to disable optimization. Only newly placed samples and nodes within this radius will be searched.
         include_reference:
+            default: true
             type: bool
             help: "Whether to include the reference sequence in the tree."
