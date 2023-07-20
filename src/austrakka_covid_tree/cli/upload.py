@@ -14,8 +14,8 @@ def upload(
     lineage_file: Optional[Path] = typer.Option(
         None, "--lineage", "-l", help="Lineage file to upload to AT2", exists=True, dir_okay=False
     ),
-    analysis: str = typer.Option(..., "--analysis-id", "-a", help="AT2 analysis ID"),
-    pro_forma: str = typer.Option("SC2-ANZ-test", "--pro-forma", "-p", help="AT2 pro forma ID"),
+    analysis: Optional[str] = typer.Option("SC2-ANZ-test", "--analysis-id", "-a", help="AT2 analysis ID"),
+    pro_forma: Optional[str] = typer.Option("SC2-ANZ-lineage", "--pro-forma", "-p", help="AT2 pro forma ID"),
     last_lineage_file: Optional[Path] = typer.Option(
         None,
         "--last-lineage",
@@ -64,7 +64,7 @@ def upload(
 
         # push analysis
         os.system(
-            f'austrakka-covid-tree env run at "austrakka metadata add -p {pro_forma} {lineage_file}"'  # noqa: S605
+            f'austrakka-covid-tree env run at "austrakka metadata append -p {pro_forma} {lineage_file}"'  # noqa: S605
         )
 
     if tree:
