@@ -33,11 +33,11 @@ annotations:
     min_date:
         default: null
         type: str
-        help: "Minimum date to filter sequences by."
+        help: "Minimum date to filter sequences by (YYYY-MM-DD)."
     max_date:
         default: null
         type: str
-        help: "Maximum date to filter sequences by."
+        help: "Maximum date to filter sequences by (YYYY-MM-DD)."
     days_ago:
         default: null
         type: int
