@@ -180,9 +180,9 @@ rule extract_tree:
     input:
         tree=rules.matOptimize.output.optimized_tree,
     output: 
-        newick="{outdir}/{name}.nwk",
+        newick=temp("{outdir}/{name}.unladderize.nwk"),
     params:
-        newick="{name}.nwk",
+        newick="{name}.unladderize.nwk",
         outdir="{outdir}",
     threads: 
         THREADS
@@ -192,3 +192,22 @@ rule extract_tree:
         """
         matUtils extract -i {input.tree} -d {params.outdir} -t {params.newick}
         """
+
+rule ladderize_tree:
+    """
+    Ladderizes the tree in Newick format using Biopython.
+
+    :input newick:             The extracted tree in Newick format produced by the :smk:ref:`extract_tree` rule.
+
+    :output newick:            The ladderized tree in Newick format.
+
+    :conda:                    Path to the Conda environment file (phytest.yaml) in the ENVS directory.
+    """
+    input:
+        newick=rules.extract_tree.output.newick,
+    output: 
+        newick="{outdir}/{name}.nwk",
+    conda:
+        ENVS / "phytest.yaml"
+    shell:
+        "python {SCRIPTS}/ladderize_tree.py {input.newick} {output.newick}"
