@@ -1,6 +1,6 @@
 import pandas as pd
 
-COVERGE_THRESHOLD = 0.9
+PERCENT_COVERAGE_THRESHOLD = 90
 
 df = pd.read_csv(snakemake.input.nextclade_tsv, sep="\t")
 
@@ -14,7 +14,7 @@ df = df.rename(
 )
 
 # Set df QC to FAIL if coverage is less than COVERGE_THRESHOLD otherwise set to PASS
-df["QC"] = df.apply(lambda x: "FAIL" if x["Coverage"] < COVERGE_THRESHOLD else "PASS", axis=1)
+df["QC"] = df.apply(lambda x: "FAIL" if x["Coverage"] < PERCENT_COVERAGE_THRESHOLD else "PASS", axis=1)
 
 # Extract proforma
 upload_df = df[["Seq_ID", "Coverage", "Lineage", "Lineage_family", "Lineage_full", "Lineage_note", "QC"]]
