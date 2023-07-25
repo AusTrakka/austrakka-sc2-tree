@@ -4,7 +4,7 @@ logs
 test.nwk
 .DS_Store
 .env
-test.metadata.tsv
+test.metadata.csv
 results
 docs/build
 test.nextclade.tsv

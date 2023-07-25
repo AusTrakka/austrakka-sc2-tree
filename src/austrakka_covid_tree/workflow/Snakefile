@@ -20,7 +20,7 @@ outdir = Path(config["outdir"]) if config.get("outdir") else Path.cwd()
 rule all:
     input:
         tree=expand("{outdir}/{name}.nwk", name=name, outdir=outdir),
-        metadata=expand("{outdir}/{name}.nextclade.tsv", name=name, outdir=outdir),
+        metadata=expand("{outdir}/{name}.metadata.csv", name=name, outdir=outdir),
 
 include: RULES / "lineage.smk"
 include: RULES / "filter.smk"

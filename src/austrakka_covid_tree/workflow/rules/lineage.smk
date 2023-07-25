@@ -75,6 +75,12 @@ rule nextclade:
             --output-tsv {output.nextclade_tsv} \
             --output-fasta {output.alignment} \
             {input.fasta}
+        
+        # add nextclade version to the output file
+        nextclade_version=$(nextclade -V)
+        awk -v OFS='\t' -v val="$nextclade_version" \
+            '{{if(NR==1) print $0, "Lineage_note"; else print $0, val}}' {output.nextclade_tsv} > {output.nextclade_tsv}.tmp
+        mv {output.nextclade_tsv}.tmp {output.nextclade_tsv}
         """
 
 rule collapse_lineages:
@@ -139,9 +145,9 @@ rule mask_lineages:
     script:
         SCRIPTS / "mask_lineages.py"
 
-rule format_nextclade:
+rule extract_upload_metadata:
     """
-    Nextclade output to AT format.
+    Nextclade output to AT upload format.
 
     :input nextclade_tsv:       The TSV file produced by the :smk:ref:`mask_lineages` rule, containing masked lineage call results.
 
@@ -160,8 +166,8 @@ rule format_nextclade:
     input:
         nextclade_tsv=rules.mask_lineages.output.masked_nextclade_tsv
     output:
-        formated_tsv="{outdir}/{name}.nextclade.tsv",
+        metadata_csv="{outdir}/{name}.metadata.csv",
     conda:
         ENVS / "python.yaml"
     script:
-        SCRIPTS / "format_nextclade.py"
+        SCRIPTS / "extract_upload_metadata.py"

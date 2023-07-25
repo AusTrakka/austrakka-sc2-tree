@@ -85,7 +85,7 @@ rule filter_nextclade:
     """
     input:
         alignment=rules.nextclade.output.alignment,
-        metadata=rules.format_nextclade.output.formated_tsv,
+        metadata=rules.extract_upload_metadata.output.metadata_csv,
     output:
         alignment_filtered = temp("{outdir}/{name}.filtered.afa"),
         metadata_filtered = temp("{outdir}/{name}.nextclade.filtered.tsv"),
