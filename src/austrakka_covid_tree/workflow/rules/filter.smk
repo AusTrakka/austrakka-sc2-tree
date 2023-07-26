@@ -88,7 +88,7 @@ rule filter_nextclade:
         metadata=rules.extract_upload_metadata.output.metadata_csv,
     output:
         alignment_filtered = temp("{outdir}/{name}.filtered.afa"),
-        metadata_filtered = temp("{outdir}/{name}.nextclade.filtered.tsv"),
+        nextclade_filtered = temp("{outdir}/{name}.nextclade.filtered.tsv"),
     params:
         id_column = "Seq_ID",
         query = " & ".join(config['filter'].get("nextclade"))
@@ -102,5 +102,5 @@ rule filter_nextclade:
             --metadata-id-columns {params.id_column} \
             --query "{params.query}" \
             --output {output.alignment_filtered} \
-            --output-metadata {output.metadata_filtered}
+            --output-metadata {output.nextclade_filtered}
         '''

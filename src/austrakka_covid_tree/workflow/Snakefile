@@ -21,7 +21,9 @@ rule all:
     input:
         tree=expand("{outdir}/{name}.nwk", name=name, outdir=outdir),
         metadata=expand("{outdir}/{name}.metadata.csv", name=name, outdir=outdir),
+        report=expand("{outdir}/{name}.phytest-report.html", name=name, outdir=outdir)
 
 include: RULES / "lineage.smk"
 include: RULES / "filter.smk"
 include: RULES / "tree.smk"
+include: RULES / "phytest.smk"

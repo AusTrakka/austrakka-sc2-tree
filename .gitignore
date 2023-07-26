@@ -9,3 +9,5 @@ results
 docs/build
 test.nextclade.tsv
 tests/data/metadata.csv
+.pytest_cache
+test.phytest-report.html
