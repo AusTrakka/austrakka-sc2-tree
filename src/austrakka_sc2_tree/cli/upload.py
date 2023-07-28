@@ -64,9 +64,9 @@ def upload(
 
         # push analysis
         os.system(
-            f'austrakka-covid-tree env run at "austrakka metadata append -p {pro_forma} {lineage_file}"'  # noqa: S605
+            f'austrakka-sc2-tree env run at "austrakka metadata append -p {pro_forma} {lineage_file}"'  # noqa: S605
         )
 
     if tree:
         # push tree
-        os.system(f'austrakka-covid-tree env run at "austrakka tree add -a {analysis} {tree}"')  # noqa: S605
+        os.system(f'austrakka-sc2-tree env run at "austrakka tree add -a {analysis} {tree}"')  # noqa: S605

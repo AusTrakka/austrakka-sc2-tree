@@ -7,7 +7,7 @@ To run the Snakemake pipeline, use the following command:
 
 .. code-block:: bash
 
-    austrakka-covid-tree run [OPTIONS] [TARGET]
+    austrakka-sc2-tree run [OPTIONS] [TARGET]
 
 All unrecognized arguments are passed onto Snakemake. If the TARGET file is not specified, the pipeline will run the 'all' rule by default.
 
@@ -58,4 +58,4 @@ Options
 
 - ``--help -h``: Show this message and exit.
 
-For more information, refer to the austrakka-covid-tree CLI help or the Snakemake documentation.
+For more information, refer to the austrakka-sc2-tree CLI help or the Snakemake documentation.

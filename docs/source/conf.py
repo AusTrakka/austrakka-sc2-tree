@@ -17,8 +17,8 @@ import os
 import sys
 from pathlib import Path
 
-sys.path.append(os.path.abspath("../../src/austrakka_covid_tree"))
-from austrakka_covid_tree import __about__ # noqa: E402
+sys.path.append(os.path.abspath("../../src/austrakka_sc2_tree"))
+from austrakka_sc2_tree import __about__ # noqa: E402
 
 # -- Project information -----------------------------------------------------
 
@@ -36,7 +36,7 @@ release = __about__.__version__
 # ones.
 extensions = ["snakedoc", "sphinx_immaterial"]
 
-smk_linkcode_mapping = (str(Path(__file__).absolute().parents[2]), "https://github.com/AusTrakka/austrakka-covid-tree/blob/main")
+smk_linkcode_mapping = (str(Path(__file__).absolute().parents[2]), "https://github.com/AusTrakka/austrakka-sc2-tree/blob/main")
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
@@ -56,9 +56,9 @@ html_theme = "sphinx_immaterial"
 # html_logo = "img/snakedoc-logo.svg"
 html_theme_options = {
     "toc_title_is_page_title": True,
-    "site_url": "https://austrakka.github.io/austrakka-covid-tree/",
-    "repo_url": "https://github.com/AusTrakka/austrakka-covid-tree",
-    "repo_name": "austrakka-covid-tree",
+    "site_url": "https://austrakka.github.io/austrakka-sc2-tree/",
+    "repo_url": "https://github.com/AusTrakka/austrakka-sc2-tree",
+    "repo_name": "austrakka-sc2-tree",
     "features": ["content.code.annotate", "navigation.instant", "toc.follow"],
 }
 

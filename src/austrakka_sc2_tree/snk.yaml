@@ -1,5 +1,5 @@
-logo: at-covid-tree
-tagline: A pipeline for building the AusTrakka national covid tree 
+logo: at-sc2-tree
+tagline: A pipeline for building the AusTrakka national SARS-CoV-2 tree 
 font: Slant
 annotations: 
     fasta: 

@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "austrakka-covid-tree"
+name = "austrakka-sc2-tree"
 dynamic = ["version"]
 description = ''
 readme = "README.md"
@@ -25,19 +25,19 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "snk>=0.11.0",
+  "snk>=0.11.1",
 ]
 
 [project.urls]
-Documentation = "https://github.com/unknown/austrakka-covid-tree#readme"
-Issues = "https://github.com/unknown/austrakka-covid-tree/issues"
-Source = "https://github.com/unknown/austrakka-covid-tree"
+Documentation = "https://github.com/unknown/austrakka-sc2-tree#readme"
+Issues = "https://github.com/unknown/austrakka-sc2-tree/issues"
+Source = "https://github.com/unknown/austrakka-sc2-tree"
 
 [project.scripts]
-austrakka-covid-tree = "austrakka_covid_tree.cli:austrakka_covid_tree"
+austrakka-sc2-tree = "austrakka_sc2_tree.cli:austrakka_sc2_tree"
 
 [tool.hatch.version]
-path = "src/austrakka_covid_tree/__about__.py"
+path = "src/austrakka_sc2_tree/__about__.py"
 
 [tool.hatch.envs.default]
 dependencies = [
@@ -75,7 +75,7 @@ dependencies = [
   "ruff>=0.0.243",
 ]
 [tool.hatch.envs.lint.scripts]
-typing = "mypy --install-types --non-interactive {args:src/austrakka_covid_tree tests}"
+typing = "mypy --install-types --non-interactive {args:src/austrakka_sc2_tree tests}"
 style = [
   "ruff {args:.}",
   "black --check --diff {args:.}",
@@ -143,7 +143,7 @@ unfixable = [
 ]
 
 [tool.ruff.isort]
-known-first-party = ["austrakka_covid_tree"]
+known-first-party = ["austrakka_sc2_tree"]
 
 [tool.ruff.flake8-tidy-imports]
 ban-relative-imports = "all"
@@ -158,16 +158,16 @@ extend-immutable-calls = ["typer.Option"]
 
 
 [tool.coverage.run]
-source_pkgs = ["austrakka_covid_tree", "tests"]
+source_pkgs = ["austrakka_sc2_tree", "tests"]
 branch = true
 parallel = true
 omit = [
-  "src/austrakka_covid_tree/__about__.py",
+  "src/austrakka_sc2_tree/__about__.py",
 ]
 
 [tool.coverage.paths]
-austrakka_covid_tree = ["src/austrakka_covid_tree", "*/austrakka-covid-tree/src/austrakka_covid_tree"]
-tests = ["tests", "*/austrakka-covid-tree/tests"]
+austrakka_sc2_tree = ["src/austrakka_sc2_tree", "*/austrakka-sc2-tree/src/austrakka_sc2_tree"]
+tests = ["tests", "*/austrakka-sc2-tree/tests"]
 
 [tool.coverage.report]
 exclude_lines = [
