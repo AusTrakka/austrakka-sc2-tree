@@ -12,7 +12,7 @@ def test_for_long_branches(tree: Tree):
     """
     tree.assert_branch_lengths(min=0, max=100)
 
-def test_tree_is_rooted(tree: Tree):
+def test_tree_is_not_rooted(tree: Tree):
     """
     We expect that the tree is not rooted.
     """
