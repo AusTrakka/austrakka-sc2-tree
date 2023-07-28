@@ -17,5 +17,6 @@ Modules & Rules
    modules/lineage
    modules/filter
    modules/tree
+   modules/phytest
 
 .. _Snakemake: https://snakemake.github.io

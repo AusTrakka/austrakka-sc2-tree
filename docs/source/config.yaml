@@ -6,6 +6,8 @@ starting_tree: null
 filter: 
   nextclade:
     - "Coverage >= 90"
+phytest:
+  threads: 1
 tree: 
   threads: null
   batch_size_per_process: 10
