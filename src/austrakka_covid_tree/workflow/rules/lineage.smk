@@ -83,6 +83,35 @@ rule nextclade:
         mv {output.nextclade_tsv}.tmp {output.nextclade_tsv}
         """
 
+
+rule mask_lineages:
+    """
+    Masks 'Unassigned' and 'LowCoverage' lineage calls in the input lineage call results.
+
+    :input nextclade_tsv:      The TSV file produced by the :smk:ref:`collapse_lineages` rule, containing collapsed lineage call results.
+
+    :output masked_nextclade_tsv: Temporary TSV file to store the masked lineage call results.
+
+    :conda:                    Path to the Conda environment file (python.yaml) in the ENVS directory.
+
+    :script:                   Python script (mask_lineages.py) in the SCRIPTS directory that is run to mask 'Unassigned' 
+                               and 'LowCoverage' lineage calls.
+
+    .. note::
+        This rule runs a Python script to mask 'Unassigned' and 'LowCoverage' lineage calls in the input lineage call results. 
+        The masked lineage calls are stored in a TSV file. The standard error and output from the command are logged in the 
+        specified log file.
+    """
+    input:
+        nextclade_tsv=rules.nextclade.output.nextclade_tsv
+    output:
+        masked_nextclade_tsv=temp("{outdir}/{name}.nextclade.masked.tsv")
+    conda:
+        ENVS / "python.yaml"
+    script:
+        SCRIPTS / "mask_lineages.py"
+
+
 rule collapse_lineages:
     """
     Runs pango-collapse to collapse Nextclade lineages.
@@ -106,7 +135,7 @@ rule collapse_lineages:
         specified log file.
     """
     input:
-        nextclade_tsv=rules.nextclade.output.nextclade_tsv
+        nextclade_tsv=rules.mask_lineages.output.masked_nextclade_tsv
     output:
         nextclade_collapsed_tsv=temp("{outdir}/{name}.nextclade.collapsed.tsv")
     params:
@@ -117,33 +146,6 @@ rule collapse_lineages:
         """
         pango-collapse -l Nextclade_pango --latest --url {params.url} -o {output} {input}
         """
-
-rule mask_lineages:
-    """
-    Masks 'Unassigned' and 'LowCoverage' lineage calls in the input lineage call results.
-
-    :input nextclade_tsv:      The TSV file produced by the :smk:ref:`collapse_lineages` rule, containing collapsed lineage call results.
-
-    :output masked_nextclade_tsv: Temporary TSV file to store the masked lineage call results.
-
-    :conda:                    Path to the Conda environment file (python.yaml) in the ENVS directory.
-
-    :script:                   Python script (mask_lineages.py) in the SCRIPTS directory that is run to mask 'Unassigned' 
-                               and 'LowCoverage' lineage calls.
-
-    .. note::
-        This rule runs a Python script to mask 'Unassigned' and 'LowCoverage' lineage calls in the input lineage call results. 
-        The masked lineage calls are stored in a TSV file. The standard error and output from the command are logged in the 
-        specified log file.
-    """
-    input:
-        nextclade_tsv=rules.collapse_lineages.output.nextclade_collapsed_tsv
-    output:
-        masked_nextclade_tsv=temp("{outdir}/{name}.nextclade.masked.tsv")
-    conda:
-        ENVS / "python.yaml"
-    script:
-        SCRIPTS / "mask_lineages.py"
 
 rule extract_upload_metadata:
     """
@@ -164,7 +166,7 @@ rule extract_upload_metadata:
         specified log file.
     """
     input:
-        nextclade_tsv=rules.mask_lineages.output.masked_nextclade_tsv
+        nextclade_tsv=rules.collapse_lineages.output.nextclade_collapsed_tsv
     output:
         metadata_csv="{outdir}/{name}.metadata.csv",
     conda:

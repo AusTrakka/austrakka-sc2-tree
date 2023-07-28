@@ -38,8 +38,8 @@ def test_validate_data(data: Data):
     data.assert_range("Coverage", min=0, max=100)
     data.assert_match("Lineage", r"^[A-Z0-9\.]+$|Unassigned")
     data_nonan = Data(data.dropna())
-    data_nonan.assert_match("Lineage_family", r"^[A-Z0-9\.]+$|Recombinant")
-    data_nonan.assert_match("Lineage_full", r"^[A-Z0-9\.]+$")
+    data_nonan.assert_match("Lineage_family", r"^[A-Z0-9\.]+$|Recombinant|Unassigned")
+    data_nonan.assert_match("Lineage_full", r"^[A-Z0-9\.]+$|Unassigned")
     data.assert_match("Lineage_note", r"^nextclade")
     data.assert_values("QC", ["PASS", "FAIL"])
 
