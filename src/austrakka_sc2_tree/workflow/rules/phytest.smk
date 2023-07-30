@@ -25,6 +25,8 @@ rule phytest:
         tree = rules.ladderize_tree.output.newick,
     output:
         report = report("{outdir}/{name}.phytest-report.html")
+    params:
+        error_report = "{outdir}/{name}.error.phytest-report.html"
     conda:
         ENVS / "phytest.yaml"
     threads:
@@ -32,8 +34,11 @@ rule phytest:
     shell:
         """
         phytest {SCRIPTS}/phytests.py \
+            -v \
             --tree {input.tree} \
             --data {input.data} \
-            --report {output.report} \
+            --report {params.error_report} \
             -n {threads}
+        # prevent error report from being deleted
+        mv {params.error_report} {output.report}
         """
