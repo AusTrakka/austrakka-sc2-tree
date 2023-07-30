@@ -106,6 +106,9 @@ rule mask_lineages:
         nextclade_tsv=rules.nextclade.output.nextclade_tsv
     output:
         masked_nextclade_tsv=temp("{outdir}/{name}.nextclade.masked.tsv")
+    params:
+        mask_low_coverage=config["lineage"]['mask']['low_coverage'] == "True",
+        mask_unassigned=config["lineage"]['mask']['unassigned'] == "True",
     conda:
         ENVS / "python.yaml"
     script:

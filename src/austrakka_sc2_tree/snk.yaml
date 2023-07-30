@@ -78,6 +78,15 @@ annotations:
             default: false
             type: bool
             help: "Whether to use the unreleased nextclade_data version."
+        mask:
+            low_coverage:
+                default: false
+                type: bool
+                help: "Mask lineage calls with < 90 % coverage as LowCoverage."
+            unassigned:
+                default: false
+                type: bool
+                help: "Mask lineage calls with bad QC as Unassigned."
     tree:
         threads:
             type: int
