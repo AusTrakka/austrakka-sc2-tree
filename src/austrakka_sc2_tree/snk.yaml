@@ -55,6 +55,18 @@ annotations:
             default: 1
             type: int
             help: "Number of threads to use for phytest."
+    extract:
+        type: List[str]
+        help: "Columns to extract from Nextclade output for uploading. Sounds be specified as column names or row-wise operations e.g. Coverage: row['coverage'] * 100."
+        default: 
+            - 'Seq_ID: row["seqName"]'
+            - 'Lineage: row["Nextclade_pango"]'
+            - 'Coverage: row["coverage"] * 100'
+            - 'QC: "FAIL" if row["coverage"] < 0.90 else "PASS"'
+            - 'Lineage_family'
+            - 'Lineage_full'
+            - 'Lineage_expanded'
+            - 'Lineage_note'
     filter:
         nextclade:
             default: 

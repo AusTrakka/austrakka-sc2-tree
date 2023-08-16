@@ -1,21 +1,28 @@
 import pandas as pd
 
-PERCENT_COVERAGE_THRESHOLD = 90
-
 df = pd.read_csv(snakemake.input.nextclade_tsv, sep="\t")
 
-# rename columns for AT proforma
-df = df.rename(
-    columns={
-        "seqName": "Seq_ID",
-        "Nextclade_pango": "Lineage",
-        "coverage": "Coverage",
-    }
-)
+columns = {}
 
-# Set df QC to FAIL if coverage is less than COVERGE_THRESHOLD otherwise set to PASS
-df["QC"] = df.apply(lambda x: "FAIL" if x["Coverage"] < PERCENT_COVERAGE_THRESHOLD else "PASS", axis=1)
+for col in snakemake.config['extract']:
+    try:
+        new_col, operation = col.split(":")
+    except ValueError:
+        new_col = col
+        operation = f"row['{col}']"
+    columns[new_col] = operation
+# New DataFrame to store the results
+upload_df = pd.DataFrame()
 
-# Extract proforma
-upload_df = df[["Seq_ID", "Coverage", "Lineage", "Lineage_family", "Lineage_full", "Lineage_note", "QC"]]
+
+# Function to apply transformations based on config
+def apply_transformations(row):
+    transformed_row = {}
+    for new_col, operation in columns.items():
+        transformed_row[new_col] = eval(operation)
+    return pd.Series(transformed_row)
+
+# Applying the transformations to the DataFrame
+upload_df = df.apply(apply_transformations, axis=1)
+
 upload_df.to_csv(snakemake.output.metadata_csv, index=False)
