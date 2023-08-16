@@ -4,24 +4,28 @@ RULES = WORKFLOW / "rules"
 ENVS = WORKFLOW / "envs"
 SCRIPTS = WORKFLOW / "scripts"
 RESOURCES = WORKFLOW.parent / "data"
+config["fasta"] = Path(config["fasta"]).resolve()
+config["data"] = Path(config["data"]).resolve() if config.get("data") else None
 
-fasta_path = Path(config["fasta"]).resolve()
 if config.get("name"):
     name = config["name"]
 else:
-    name = fasta_path.stem
+    name = config["fasta"].stem
 
 if config.get("dated"):
     import datetime
     name = f"{datetime.datetime.now().strftime('%Y-%m-%dT%H%M%S.%f')}.{name}"
 
 outdir = Path(config["outdir"]) if config.get("outdir") else Path.cwd()
+if config.get("data") and config["data"].name == f"{name}.metadata.csv":
+    # snakemake weirdness
+    raise ValueError(f"Data and cannot be named {name}.metadata.csv")
 
 rule all:
     input:
-        tree=expand("{outdir}/{name}.nwk", name=name, outdir=outdir),
-        metadata=expand("{outdir}/{name}.metadata.csv", name=name, outdir=outdir),
-        report=expand("{outdir}/{name}.phytest-report.html", name=name, outdir=outdir)
+        tree=f"{outdir}/{name}.nwk",
+        metadata=f"{outdir}/{name}.metadata.csv",
+        report=f"{outdir}/{name}.phytest-report.html"
 
 include: RULES / "lineage.smk"
 include: RULES / "filter.smk"

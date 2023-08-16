@@ -35,7 +35,7 @@ rule filter_metadata:
     """
     input:
         fasta = config["fasta"],
-        metadata = config.get("data", '')
+        metadata = config["data"] if config["data"] else ""
     output:
         fasta_filtered = temp("{outdir}/{name}.filtered.fasta"),
         metadata_filtered = temp("{outdir}/{name}.metadata.filtered.tsv"),
