@@ -15,7 +15,7 @@ rule download_nextclade_db:
         tree from the Nextstrain staging area.
     """
     output:
-        temp(directory("nextclade_data_dir"))
+        nextclade_data_dir=temp(directory("{outdir}/nextclade_data_dir"))
     conda:
         ENVS / "nextclade.yaml"
     params:
@@ -25,7 +25,7 @@ rule download_nextclade_db:
         nextclade dataset get \
             --verbose \
             --name 'sars-cov-2' \
-            --output-dir {output}
+            --output-dir {output.nextclade_data_dir}
         if [ {params.download_unreleased_tree} = 1 ]
         then
             echo "Using unreleased Nextclade tree!"
@@ -56,7 +56,7 @@ rule nextclade:
     """
     input:
         fasta = "{outdir}/{name}.filtered.fasta" if config.get("data", None) else config["fasta"],
-        nextclade_data_dir = "nextclade_data_dir"
+        nextclade_data_dir = rules.download_nextclade_db.output.nextclade_data_dir
     output:
         nextclade_tsv=temp("{outdir}/{name}.nextclade.raw.tsv"),
         alignment=temp("{outdir}/{name}.nextclade.afa")
@@ -77,8 +77,9 @@ rule nextclade:
             {input.fasta}
         
         # add nextclade version to the output file
+        nextclade_data=$(grep '"tag":' {input.nextclade_data_dir}/tag.json | awk -F'"' '{{ print $4 }}')
         nextclade_version=$(nextclade -V)
-        awk -v OFS='\t' -v val="$nextclade_version" \
+        awk -v OFS='\t' -v val="$nextclade_version;nextclade_data $nextclade_data" \
             '{{if(NR==1) print $0, "Lineage_note"; else print $0, val}}' {output.nextclade_tsv} > {output.nextclade_tsv}.tmp
         mv {output.nextclade_tsv}.tmp {output.nextclade_tsv}
         """
