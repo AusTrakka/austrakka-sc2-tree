@@ -26,14 +26,15 @@ rule phytest:
     output:
         report = report("{outdir}/{name}.phytest-report.html")
     params:
-        error_report = "{outdir}/{name}.error.phytest-report.html"
+        error_report = "{outdir}/{name}.error.phytest-report.html",
+        phytest_file = config["phytest"].get("file") if config["phytest"].get("file", None) else f"{SCRIPTS}/phytests.py"
     conda:
         ENVS / "phytest.yaml"
     threads:
         int(config["phytest"].get("threads")) if config["phytest"].get("threads") else workflow.cores
     shell:
         """
-        phytest {SCRIPTS}/phytests.py \
+        phytest {params.phytest_file} \
             -v \
             --tree {input.tree} \
             --data {input.data} \

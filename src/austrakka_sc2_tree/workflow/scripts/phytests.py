@@ -34,7 +34,7 @@ def test_validate_data(data: Data):
     """
     We expect that the tree passes qc.
     """
-    data.assert_columns(["Seq_ID", "Coverage", "Lineage", "Lineage_family", "Lineage_full", "Lineage_note", "QC"])
+    data.assert_columns(["Seq_ID", "Coverage", "Lineage", "Lineage_family", "Lineage_full", "Lineage_note", "Lineage_expanded", "QC"])
     data.assert_range("Coverage", min=0, max=100)
     data_nonan = Data(data.dropna())
     data_nonan.assert_match("Lineage", r"^[A-Z0-9\.]+$|Unassigned")
