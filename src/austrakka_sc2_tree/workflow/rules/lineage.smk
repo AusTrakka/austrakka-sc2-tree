@@ -75,7 +75,7 @@ rule nextclade:
             --output-tsv {output.nextclade_tsv} \
             --output-fasta {output.alignment} \
             {input.fasta}
-        
+
         # add nextclade version to the output file
         nextclade_data=$(grep '"tag":' {input.nextclade_data_dir}/tag.json | awk -F'"' '{{ print $4 }}')
         nextclade_version=$(nextclade -V)

@@ -33,11 +33,11 @@ rule alignment_to_vcf:
     shell:
         """
         if ! grep -q "^>{params.reference_id}$" "{input.alignment}"; then
-            echo "Reference sequence {params.reference_id} not found in alignment {input.alignment}"
-            echo "Adding reference sequence to alignment"
+            echo "Reference sequence is not included in the alignment. Appending reference sequence to the alignment."
             cat {params.reference_sequence} >> {input.alignment}
         fi
-        if [ ! -f {params.include_reference} ]; then
+        if [ {params.include_reference} -eq 1 ]; then
+            echo "Reference sequence will be included in the tree."
             cat {params.reference_sequence} >> {input.alignment}
         fi
         faToVcf -maskSites={params.mask} -ref={params.reference_id} {input.alignment} {output.masked_vcf}
