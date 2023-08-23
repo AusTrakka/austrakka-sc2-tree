@@ -143,12 +143,18 @@ rule collapse_lineages:
     output:
         nextclade_collapsed_tsv=temp("{outdir}/{name}.nextclade.collapsed.tsv")
     params:
-        url=config["lineage"].get("pango_collapse_url", "https://raw.githubusercontent.com/MDU-PHL/pango-collapse/main/pango_collapse/collapse.txt")
+        file=config["lineage"].get("pango_collapse_file")
     conda:
         ENVS / "pango_collapse.yaml"
     shell:
         """
-        pango-collapse -l Nextclade_pango --latest --url {params.url} -o {output} {input}
+        if [[ "{params.file}" == http* ]]; then
+            # If the file is a URL, run pango-collapse with the --url option
+            pango-collapse -l Nextclade_pango --latest --url "{params.file}" -o "{output}" "{input}"
+        else
+            # If the file is a local path, run pango-collapse with the --collapse-file option
+            pango-collapse -l Nextclade_pango --collapse-file "{params.file}" -o "{output}" "{input}"
+        fi
         """
 
 rule extract_upload_metadata:

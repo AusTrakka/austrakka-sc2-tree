@@ -86,10 +86,10 @@ annotations:
             default: null
             type: int
             help: "Number of threads to use for lineage calling. If None will use `--cores`."
-        pango_collapse_url:
+        pango_collapse_file:
             default: https://raw.githubusercontent.com/MDU-PHL/pango-collapse/main/collapse_files/AT-collapse.txt
             type: str
-            help: "URL to pango collapse file."
+            help: "URL or Path to pango collapse file."
         unreleased:
             default: false
             type: bool

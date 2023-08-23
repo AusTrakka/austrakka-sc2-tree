@@ -4,6 +4,8 @@ RULES = WORKFLOW / "rules"
 ENVS = WORKFLOW / "envs"
 SCRIPTS = WORKFLOW / "scripts"
 RESOURCES = WORKFLOW.parent / "data"
+
+# Config 
 config["fasta"] = Path(config["fasta"]).resolve()
 config["data"] = Path(config["data"]).resolve() if config.get("data") else None
 
