@@ -7,7 +7,7 @@ name = "austrakka-sc2-tree"
 dynamic = ["version"]
 description = ''
 readme = "README.md"
-requires-python = ">=3.7"
+requires-python = ">=3.7,<3.12"
 license = "MIT"
 keywords = []
 authors = [
@@ -25,7 +25,8 @@ classifiers = [
   "Programming Language :: Python :: Implementation :: PyPy",
 ]
 dependencies = [
-  "snk==0.13.0",
+  "snk-cli==0.2.0",
+  "snakemake==7.32.4"
 ]
 
 [project.urls]

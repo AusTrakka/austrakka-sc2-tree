@@ -1,7 +1,7 @@
 logo: at-sc2-tree
 tagline: A pipeline for building the AusTrakka national SARS-CoV-2 tree 
 font: Slant
-annotations: 
+cli: 
     fasta: 
         default: null
         type: Path
