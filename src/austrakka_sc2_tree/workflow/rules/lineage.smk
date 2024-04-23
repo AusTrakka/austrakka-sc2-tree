@@ -148,13 +148,7 @@ rule collapse_lineages:
         ENVS / "pango_collapse.yaml"
     shell:
         """
-        if [[ "{params.file}" == http* ]]; then
-            # If the file is a URL, run pango-collapse with the --url option
-            pango-collapse -l Nextclade_pango --latest --url "{params.file}" -o "{output}" "{input}"
-        else
-            # If the file is a local path, run pango-collapse with the --collapse-file option
-            pango-collapse -l Nextclade_pango --collapse-file "{params.file}" -o "{output}" "{input}"
-        fi
+        pango-collapse -l Nextclade_pango --collapse-file "{params.file}" -o "{output}" "{input}"
         """
 
 rule extract_upload_metadata:

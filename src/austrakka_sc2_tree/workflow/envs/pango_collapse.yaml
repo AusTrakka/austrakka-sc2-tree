@@ -4,4 +4,4 @@ channels:
 dependencies:                                                                                                                                                               
   - python=3.9
   - pip:
-    - pango-collapse==0.7.0
+    - pango-collapse==0.8.2
