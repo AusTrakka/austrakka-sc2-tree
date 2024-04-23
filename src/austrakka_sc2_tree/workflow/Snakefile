@@ -1,3 +1,5 @@
+from snk_cli import validate_config
+
 SNAKEFILE = Path(workflow.main_snakefile).resolve()
 WORKFLOW = SNAKEFILE.parent
 RULES = WORKFLOW / "rules"
@@ -6,13 +8,12 @@ SCRIPTS = WORKFLOW / "scripts"
 RESOURCES = WORKFLOW.parent / "data"
 
 # Config 
+validate_config(config, WORKFLOW.parent / "snk.yaml")
+
 config["fasta"] = Path(config["fasta"]).resolve()
 config["data"] = Path(config["data"]).resolve() if config.get("data") else None
 
-if config.get("name"):
-    name = config["name"]
-else:
-    name = config["fasta"].stem
+name = config.get("name", config["fasta"].stem)
 
 if config.get("dated"):
     import datetime

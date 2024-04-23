@@ -23,8 +23,7 @@ pip install austrakka-sc2-tree
 ```bash
 austrakka-sc2-tree run \
     --fasta tests/data/test.fasta \
-    --data tests/data/test.metadata.csv \
-    --days-ago 200 \
+    --data tests/data/test.csv \
     --outdir results \
     --name sc2 \
     --tree-threads 8 \

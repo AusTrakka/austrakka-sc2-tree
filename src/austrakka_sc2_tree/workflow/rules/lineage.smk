@@ -24,7 +24,7 @@ rule download_nextclade_db:
         """
         nextclade dataset get \
             --verbose \
-            --name 'sars-cov-2' \
+            --name 'nextstrain/sars-cov-2/wuhan-hu-1/orfs' \
             --output-dir {output.nextclade_data_dir}
         if [ {params.download_unreleased_tree} = 1 ]
         then
@@ -77,7 +77,7 @@ rule nextclade:
             {input.fasta}
 
         # add nextclade version to the output file
-        nextclade_data=$(grep '"tag":' {input.nextclade_data_dir}/tag.json | awk -F'"' '{{ print $4 }}')
+        nextclade_data=$(grep '"tag":' {input.nextclade_data_dir}/pathogen.json | awk -F'"' '{{ print $4 }}')
         nextclade_version=$(nextclade -V)
         awk -v OFS='\t' -v val="$nextclade_version;nextclade_data $nextclade_data" \
             '{{if(NR==1) print $0, "Lineage_note"; else print $0, val}}' {output.nextclade_tsv} > {output.nextclade_tsv}.tmp
