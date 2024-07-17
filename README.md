@@ -15,7 +15,7 @@
 ## Installation
 
 ```console
-pip install austrakka-sc2-tree
+python -m pip install git+https://github.com/AusTrakka/austrakka-sc2-tree.git
 ```
 
 ## Usage
