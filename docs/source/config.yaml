@@ -1,21 +1,39 @@
 fasta: ../../tests/data/test.fasta
-outdir: null
-mat: True
-dated: False
-starting_tree: null
-filter: 
+data: null
+dated: false
+days_ago: null
+extract:
+- 'Seq_ID: row["seqName"]'
+- 'Lineage: row["Nextclade_pango"]'
+- 'Coverage: row["coverage"] * 100'
+- 'QC: "FAIL" if row["coverage"] < 0.90 else "PASS"'
+- Lineage_family
+- Lineage_full
+- Lineage_expanded
+- Lineage_note
+filter:
+  data: []
   nextclade:
-    - "Coverage >= 90"
-phytest:
-  threads: 1
-tree: 
-  threads: null
-  batch_size_per_process: 10
-  optimization_radius: 0
-  include_reference: True
+  - Coverage >= 90
 lineage:
+  mask:
+    low_coverage: false
+    unassigned: false
+  pango_collapse_file: https://raw.githubusercontent.com/MDU-PHL/pango-collapse/main/collapse_files/AT-collapse.txt
   threads: null
-  pango_collapse_url: https://raw.githubusercontent.com/MDU-PHL/pango-collapse/main/pango_collapse/collapse.txt
-  unreleased: False
-
+  unreleased: false
+mat: false
+max_date: null
+min_date: null
+name: null
+outdir: null
+phytest:
+  file: null
+  threads: 1
+starting_tree: null
+tree:
+  batch_size_per_process: 10
+  include_reference: true
+  optimization_radius: 0
+  threads: null
 
