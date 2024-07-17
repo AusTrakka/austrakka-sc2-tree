@@ -72,15 +72,15 @@ cli:
             - 'Lineage_expanded'
             - 'Lineage_note'
     filter:
+        data: 
+            default: []
+            type: List[str]
+            help: "Filters to apply to the metadata."
         nextclade:
             default: 
                 - "Coverage >= 90"
             type: List[str]
             help: "Filters to apply to the nextclade results."
-        data: 
-            default: null
-            type: List[str]
-            help: "Filters to apply to the metadata."
     lineage:
         threads:
             default: null
