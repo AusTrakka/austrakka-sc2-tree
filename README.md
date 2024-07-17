@@ -32,7 +32,13 @@ austrakka-sc2-tree run \
 
 ## CLI 
 
+The main cli has subcommands for configuring the pipeline and environments.
+
 ![](docs/images/cli.png)
+
+The pipeline is run via the `run` subcommand.
+
+![](docs/images/run_cli.png)
 
 ## Pipeline
 
