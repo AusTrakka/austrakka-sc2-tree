@@ -19,7 +19,7 @@ rule download_nextclade_db:
     conda:
         ENVS / "nextclade.yaml"
     params:
-        download_unreleased_tree=1 if config.get('use_unreleased_nextclade', False) else 0
+        download_unreleased_tree=1 if config["lineage"].get('unreleased', False) else 0
     shell:
         """
         nextclade dataset get \
