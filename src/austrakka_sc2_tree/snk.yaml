@@ -72,6 +72,10 @@ cli:
             - 'Lineage_expanded'
             - 'Lineage_note'
     filter:
+        id_column:
+            default: Seq_ID
+            type: str
+            help: "Column that links metadata to fasta sequence id."
         data: 
             default: []
             type: List[str]

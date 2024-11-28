@@ -41,7 +41,7 @@ rule filter_metadata:
         metadata_filtered = temp("{outdir}/{name}.metadata.filtered.tsv"),
         tmp_metadata = temp("{outdir}/{name}.metadata.tmp")
     params:
-        id_column = "Seq_ID",
+        id_column = config['filter'].get("id_column"),
         query = " & ".join(config['filter'].get("data", [])),
         min_date_flag = f"--min-date {min_date}" if min_date else "",
         max_date_flag = f"--max-date {max_date}" if max_date else ""
@@ -90,7 +90,7 @@ rule filter_nextclade:
         alignment_filtered = temp("{outdir}/{name}.filtered.afa"),
         nextclade_filtered = temp("{outdir}/{name}.nextclade.filtered.tsv"),
     params:
-        id_column = "Seq_ID",
+        id_column = config['filter'].get("id_column"),
         query = " & ".join(config['filter'].get("nextclade"))
     conda:
         ENVS / "nextstrain.yaml"
