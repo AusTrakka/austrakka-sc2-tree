@@ -1,0 +1,844 @@
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      <link rel="icon" href="">
+    
+    
+      
+        <title>Tree - Austrakka Covid Tree 0.13.2 documentation</title>
+      
+    
+    
+      
+      
+
+    
+    
+    
+      
+        
+        
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+        <link rel="stylesheet" type="text/css" href="../_static/sphinx_immaterial_theme.f3acc93d38188d70c.min.css" />
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#rules" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../index.html" title="Austrakka Covid Tree 0.13.2 documentation" class="md-header__button md-logo" aria-label="Austrakka Covid Tree 0.13.2 documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Austrakka Covid Tree 0.13.2 documentation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tree
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/AusTrakka/austrakka-sc2-tree" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    austrakka-sc2-tree
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../index.html" title="Austrakka Covid Tree 0.13.2 documentation" class="md-nav__button md-logo" aria-label="Austrakka Covid Tree 0.13.2 documentation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54Z"/></svg>
+    </a>
+    Austrakka Covid Tree 0.13.2 documentation
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/AusTrakka/austrakka-sc2-tree" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    austrakka-sc2-tree
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../usage.html" class="md-nav__link">
+        <span class="md-ellipsis">Usage</span>
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2" type="checkbox" id="__nav_2" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../workflow.html"><span class="md-ellipsis">Workflow</span></a>
+          
+            <label for="__nav_2">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Workflow" data-md-level="1">
+        <label class="md-nav__title" for="__nav_2">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Workflow</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+    
+  
+  
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+      
+        <input class="md-nav__toggle md-toggle" data-md-toggle="__nav_2_1" type="checkbox" id="__nav_2_1" checked>
+      
+      
+      
+        
+        <div class="md-nav__link md-nav__link--index ">
+          <a href="../workflow.html#modules-rules"><span class="md-ellipsis">Modules &amp; Rules</span></a>
+          
+            <label for="__nav_2_1">
+              <span class="md-nav__icon md-icon"></span>
+            </label>
+          
+        </div>
+      
+      <nav class="md-nav" aria-label="Modules &amp; Rules" data-md-level="2">
+        <label class="md-nav__title" for="__nav_2_1">
+          <span class="md-nav__icon md-icon"></span>
+          <span class="md-ellipsis">Modules &amp; Rules</span>
+        </label>
+        <ul class="md-nav__list" data-md-scrollfix>
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="lineage.html" class="md-nav__link">
+        <span class="md-ellipsis">Lineage</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="filter.html" class="md-nav__link">
+        <span class="md-ellipsis">Filter</span>
+      </a>
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+    
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          <span class="md-ellipsis">Tree</span>
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="#" class="md-nav__link md-nav__link--active">
+        <span class="md-ellipsis">Tree</span>
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      <span class="md-ellipsis">Tree</span>
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">Rules</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rule-alignment_to_vcf" class="md-nav__link">
+    <span title="rule.alignment_to_vcf (Snakemake rule)" class="md-ellipsis">alignment_<wbr>to_<wbr>vcf</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-get_starting_tree" class="md-nav__link">
+    <span title="rule.get_starting_tree (Snakemake rule)" class="md-ellipsis">get_<wbr>starting_<wbr>tree</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-usher" class="md-nav__link">
+    <span title="rule.usher (Snakemake rule)" class="md-ellipsis">usher</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-matOptimize" class="md-nav__link">
+    <span title="rule.matOptimize (Snakemake rule)" class="md-ellipsis">mat<wbr>Optimize</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-extract_tree" class="md-nav__link">
+    <span title="rule.extract_tree (Snakemake rule)" class="md-ellipsis">extract_<wbr>tree</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+            
+          
+            
+              
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="phytest.html" class="md-nav__link">
+        <span class="md-ellipsis">Testing</span>
+      </a>
+    </li>
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+            
+          
+        </ul>
+      </nav>
+    </li>
+  
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../installation.html" class="md-nav__link">
+        <span class="md-ellipsis">Installation</span>
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      <span class="md-ellipsis">Tree</span>
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rules" class="md-nav__link">
+    <span class="md-ellipsis">Rules</span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#rule-alignment_to_vcf" class="md-nav__link">
+    <span title="rule.alignment_to_vcf (Snakemake rule)" class="md-ellipsis">alignment_<wbr>to_<wbr>vcf</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-get_starting_tree" class="md-nav__link">
+    <span title="rule.get_starting_tree (Snakemake rule)" class="md-ellipsis">get_<wbr>starting_<wbr>tree</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-usher" class="md-nav__link">
+    <span title="rule.usher (Snakemake rule)" class="md-ellipsis">usher</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-matOptimize" class="md-nav__link">
+    <span title="rule.matOptimize (Snakemake rule)" class="md-ellipsis">mat<wbr>Optimize</span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rule-extract_tree" class="md-nav__link">
+    <span title="rule.extract_tree (Snakemake rule)" class="md-ellipsis">extract_<wbr>tree</span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset" role="main">
+                  
+
+
+<h1 id="tree"><span id="id1"></span>Tree<a class="headerlink" href="#tree" title="Permalink to this heading">¶</a></h1>
+<p>This module contains the rules to build the tree.</p>
+<h2 id="rules">Rules<a class="headerlink" href="#rules" title="Permalink to this heading">¶</a></h2>
+<dl class="smk rule objdesc">
+<dt class="sig sig-object highlight smk" id="rule-alignment_to_vcf">
+<span class="desctype"><span class="pre">Rule</span></span><span class="w"> </span><span class="sig-name descname"><span class="pre">alignment_to_vcf</span></span><a class="reference external" href="https://github.com/AusTrakka/austrakka-sc2-tree/blob/main/src/austrakka_sc2_tree/workflow/rules/tree.smk#L3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rule-alignment_to_vcf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts the given alignment to vcf format and applies a mask to problematic sites.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="rule-alignment_to_vcf-input">Input<span class="colon">:</span><a class="headerlink" href="#rule-alignment_to_vcf-input" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p><strong>alignment</strong> – The filtered alignment file produced by the <code class="xref smk smk-ref docutils literal notranslate"><span class="pre">filter</span></code> rule.</p>
+</dd>
+<dt class="field-even" id="rule-alignment_to_vcf-output">Output<span class="colon">:</span><a class="headerlink" href="#rule-alignment_to_vcf-output" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><strong>masked_vcf</strong> – The resulting masked vcf file.</p>
+</dd>
+<dt class="field-odd" id="rule-alignment_to_vcf-params">Params<span class="colon">:</span><a class="headerlink" href="#rule-alignment_to_vcf-params" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mask</strong> – Path to the problematic sites vcf file in the RESOURCES directory that should be masked.</p></li>
+<li><p><strong>reference_sequence</strong> – Path to the reference genome sequence (MN908947.3.fna) in the RESOURCES directory.</p></li>
+<li><p><strong>reference_id</strong> – The identifier for the reference genome sequence (MN908947.3).</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="rule-alignment_to_vcf-conda">Conda<span class="colon">:</span><a class="headerlink" href="#rule-alignment_to_vcf-conda" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>Path to the Conda environment file (usher.yaml) in the ENVS directory.</p>
+</dd>
+</dl>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>This rule first checks whether the reference sequence ID is found in the given alignment. If not, it appends
+the reference sequence to the alignment file. Then, it converts the alignment to vcf format using the <cite>faToVcf</cite>
+command, applying a mask to problematic sites. The problematic sites are defined in the provided mask vcf file.</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd" id="rule-alignment_to_vcf-conda">Conda<span class="colon">:</span><a class="headerlink" href="#rule-alignment_to_vcf-conda" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">channels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bioconda</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usher</span>
+</code></pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="smk rule objdesc">
+<dt class="sig sig-object highlight smk" id="rule-get_starting_tree">
+<span class="desctype"><span class="pre">Rule</span></span><span class="w"> </span><span class="sig-name descname"><span class="pre">get_starting_tree</span></span><a class="reference external" href="https://github.com/AusTrakka/austrakka-sc2-tree/blob/main/src/austrakka_sc2_tree/workflow/rules/tree.smk#L46"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rule-get_starting_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieves or creates a starting tree for the phylogenetic tree construction process.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="rule-get_starting_tree-output">Output<span class="colon">:</span><a class="headerlink" href="#rule-get_starting_tree-output" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p><strong>tree</strong> – The starting tree in Newick format.</p>
+</dd>
+<dt class="field-even" id="rule-get_starting_tree-params">Params<span class="colon">:</span><a class="headerlink" href="#rule-get_starting_tree-params" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><strong>starting</strong> – The optional path to the starting tree. This path is fetched from the “starting” field
+in the “tree” section of the configuration. If not specified, an empty tree is used.</p>
+</dd>
+<dt class="field-odd" id="rule-get_starting_tree-conda">Conda<span class="colon">:</span><a class="headerlink" href="#rule-get_starting_tree-conda" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p>Path to the Conda environment file (usher.yaml) in the ENVS directory.</p>
+</dd>
+</dl>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>If a starting tree is specified in the configuration, this rule simply copies the specified file to the output
+location. If no starting tree is specified, it creates an empty tree (represented as “()”) and writes it to the
+output location.</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd" id="rule-get_starting_tree-conda">Conda<span class="colon">:</span><a class="headerlink" href="#rule-get_starting_tree-conda" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">channels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bioconda</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usher</span>
+</code></pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="smk rule objdesc">
+<dt class="sig sig-object highlight smk" id="rule-usher">
+<span class="desctype"><span class="pre">Rule</span></span><span class="w"> </span><span class="sig-name descname"><span class="pre">usher</span></span><a class="reference external" href="https://github.com/AusTrakka/austrakka-sc2-tree/blob/main/src/austrakka_sc2_tree/workflow/rules/tree.smk#L77"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rule-usher" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructs a phylogenetic tree using UShER based on given vcf and starting tree.</p>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The UShER tool is used to quickly place new sequences into an existing phylogenetic tree while maintaining
+the overall tree topology. In this rule, we are running UShER with several options including multi-threading,
+tree collapsing, and mutation-annotated tree saving. The standard error and output are logged in the specified
+log file.</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd" id="rule-usher-input">Input<span class="colon">:</span><a class="headerlink" href="#rule-usher-input" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>vcf</strong> – The masked vcf file produced by the <a class="reference internal" href="#rule-alignment_to_vcf" title="rule-alignment_to_vcf"><code class="xref smk smk-ref docutils literal notranslate"><span class="pre">alignment_to_vcf</span></code></a> rule.</p></li>
+<li><p><strong>starting_tree</strong> – The starting tree file produced by the <a class="reference internal" href="#rule-get_starting_tree" title="rule-get_starting_tree"><code class="xref smk smk-ref docutils literal notranslate"><span class="pre">get_starting_tree</span></code></a> rule.</p></li>
+</ul>
+</dd>
+<dt class="field-even" id="rule-usher-output">Output<span class="colon">:</span><a class="headerlink" href="#rule-usher-output" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><strong>tree</strong> – The constructed phylogenetic tree in protobuf format.</p>
+</dd>
+<dt class="field-odd" id="rule-usher-params">Params<span class="colon">:</span><a class="headerlink" href="#rule-usher-params" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p><strong>reference</strong> – Path to the reference genome file (MN908947.3.fna) in the RESOURCES directory.</p>
+</dd>
+<dt class="field-even" id="rule-usher-threads">Threads<span class="colon">:</span><a class="headerlink" href="#rule-usher-threads" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>Number of threads to use for this rule, which is fetched from the “tree” section of the
+configuration. If not specified, the total number of available cores in the workflow
+is used.</p>
+</dd>
+<dt class="field-odd" id="rule-usher-conda">Conda<span class="colon">:</span><a class="headerlink" href="#rule-usher-conda" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p>Path to the Conda environment file (usher.yaml) in the ENVS directory.</p>
+</dd>
+<dt class="field-even" id="rule-usher-conda">Conda<span class="colon">:</span><a class="headerlink" href="#rule-usher-conda" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">channels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bioconda</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usher</span>
+</code></pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="smk rule objdesc">
+<dt class="sig sig-object highlight smk" id="rule-matOptimize">
+<span class="desctype"><span class="pre">Rule</span></span><span class="w"> </span><span class="sig-name descname"><span class="pre">matOptimize</span></span><a class="reference external" href="https://github.com/AusTrakka/austrakka-sc2-tree/blob/main/src/austrakka_sc2_tree/workflow/rules/tree.smk#L126"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rule-matOptimize" title="Permalink to this definition">¶</a></dt>
+<dd><p>Optimizes a Mutation Annotated Tree (MAT) using the matOptimize command from UShER.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="rule-matOptimize-input">Input<span class="colon">:</span><a class="headerlink" href="#rule-matOptimize-input" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p><strong>tree</strong> – The phylogenetic tree in protobuf format produced by the <a class="reference internal" href="#rule-usher" title="rule-usher"><code class="xref smk smk-ref docutils literal notranslate"><span class="pre">usher</span></code></a> rule.</p>
+</dd>
+<dt class="field-even" id="rule-matOptimize-output">Output<span class="colon">:</span><a class="headerlink" href="#rule-matOptimize-output" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><strong>optimized_tree</strong> – The optimized MAT in protobuf format.</p>
+</dd>
+<dt class="field-odd" id="rule-matOptimize-threads">Threads<span class="colon">:</span><a class="headerlink" href="#rule-matOptimize-threads" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p>Number of threads to use for this rule, which is fetched from the “tree” section of the
+configuration. If not specified, the total number of available cores in the workflow
+is used.</p>
+</dd>
+<dt class="field-even" id="rule-matOptimize-conda">Conda<span class="colon">:</span><a class="headerlink" href="#rule-matOptimize-conda" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>Path to the Conda environment file (usher.yaml) in the ENVS directory.</p>
+</dd>
+</dl>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The matOptimize command is used to optimize an input MAT by improving the parsimony score. The tool does not
+write intermediate files during optimization (–do-not-write-intermediate-files option). The standard error and
+output from the command are logged in the specified log file.</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd" id="rule-matOptimize-conda">Conda<span class="colon">:</span><a class="headerlink" href="#rule-matOptimize-conda" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">channels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bioconda</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usher</span>
+</code></pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<dl class="smk rule objdesc">
+<dt class="sig sig-object highlight smk" id="rule-extract_tree">
+<span class="desctype"><span class="pre">Rule</span></span><span class="w"> </span><span class="sig-name descname"><span class="pre">extract_tree</span></span><a class="reference external" href="https://github.com/AusTrakka/austrakka-sc2-tree/blob/main/src/austrakka_sc2_tree/workflow/rules/tree.smk#L162"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#rule-extract_tree" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts a tree from the optimized Mutation Annotated Tree (MAT) in Newick format using the matUtils command from UShER.</p>
+<dl class="field-list simple">
+<dt class="field-odd" id="rule-extract_tree-input">Input<span class="colon">:</span><a class="headerlink" href="#rule-extract_tree-input" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p><strong>tree</strong> – The optimized MAT in protobuf format produced by the <a class="reference internal" href="#rule-matOptimize" title="rule-matOptimize"><code class="xref smk smk-ref docutils literal notranslate"><span class="pre">matOptimize</span></code></a> rule.</p>
+</dd>
+<dt class="field-even" id="rule-extract_tree-output">Output<span class="colon">:</span><a class="headerlink" href="#rule-extract_tree-output" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p><strong>newick</strong> – The extracted tree in Newick format.</p>
+</dd>
+<dt class="field-odd" id="rule-extract_tree-threads">Threads<span class="colon">:</span><a class="headerlink" href="#rule-extract_tree-threads" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><p>Number of threads to use for this rule, which is fetched from the “tree” section of the
+configuration. If not specified, the total number of available cores in the workflow
+is used.</p>
+</dd>
+<dt class="field-even" id="rule-extract_tree-conda">Conda<span class="colon">:</span><a class="headerlink" href="#rule-extract_tree-conda" title="Permalink to this headline">¶</a></dt>
+<dd class="field-even"><p>Path to the Conda environment file (usher.yaml) in the ENVS directory.</p>
+</dd>
+</dl>
+<div class="note admonition">
+<p class="admonition-title">Note</p>
+<p>The matUtils extract command is used to extract a tree from the input MAT and write it in Newick format. The
+standard error and output from the command are logged in the specified log file.</p>
+</div>
+<dl class="field-list">
+<dt class="field-odd" id="rule-extract_tree-conda">Conda<span class="colon">:</span><a class="headerlink" href="#rule-extract_tree-conda" title="Permalink to this headline">¶</a></dt>
+<dd class="field-odd"><div class="highlight-yaml notranslate"><div class="highlight"><pre><span></span><code><span class="nt">channels</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">conda-forge</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">bioconda</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">defaults</span>
+<span class="nt">dependencies</span><span class="p">:</span>
+<span class="w">  </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">usher</span>
+</code></pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="filter.html" class="md-footer__link md-footer__link--prev" aria-label="Previous: Filter" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Filter
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="phytest.html" class="md-footer__link md-footer__link--next" aria-label="Next: Testing" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Testing
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  
+  
+  <div class="md-footer-meta md-typeset">
+    
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-footer-copyright__highlight">
+        &#169; Copyright 2023-present, Austrakka.
+        
+    </div>
+  
+    Created using
+    <a href="https://www.sphinx-doc.org/" target="_blank" rel="noopener">Sphinx</a>
+    6.2.1.
+     and
+    <a href="https://github.com/jbms/sphinx-immaterial/" target="_blank" rel="noopener">Sphinx-Immaterial</a>
+  
+</div>
+      
+    </div>
+    
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.annotate", "navigation.instant", "toc.follow"], "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+      
+        <script src="../_static/sphinx_immaterial_theme.f9d9eeeb247ace16c.min.js"></script>
+    
+  </body>
+</html>
