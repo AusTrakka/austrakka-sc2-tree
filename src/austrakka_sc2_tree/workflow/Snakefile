@@ -13,7 +13,7 @@ validate_config(config, WORKFLOW.parent / "snk.yaml")
 config["fasta"] = Path(config["fasta"]).resolve()
 config["data"] = Path(config["data"]).resolve() if config.get("data") else None
 
-name = config.get("name", config["fasta"].stem)
+name = config.get("name") if config.get("name") else config["fasta"].stem
 
 if config.get("dated"):
     import datetime
