@@ -193,6 +193,33 @@ rule extract_tree:
         matUtils extract -i {input.tree} -d {params.outdir} -t {params.newick}
         """
 
+rule root_tree:
+    """
+    Roots the tree in Newick format using Biopython.
+
+    :input newick:             The extracted tree in Newick format produced by the :smk:ref:`extract_tree` rule.
+
+    :output newick:            The rooted tree in Newick format.
+
+    :conda:                    Path to the Conda environment file (phytest.yaml) in the ENVS directory.
+    """
+    input:
+        newick=rules.extract_tree.output.newick,
+    output: 
+        newick="{outdir}/{name}.rooted.nwk",
+    conda:
+        ENVS / "phytest.yaml"
+    params:
+        root_on=config["tree"].get("root_on", None)
+    shell:
+        """
+        if [ "{params.root_on}" = "None" ] || [ -z "{params.root_on}" ]; then
+            cp {input.newick} {output.newick}
+            exit 0
+        fi
+        python {SCRIPTS}/root_tree.py {input.newick} {output.newick} {params.root_on}
+        """
+
 rule ladderize_tree:
     """
     Ladderizes the tree in Newick format using Biopython.
@@ -204,7 +231,7 @@ rule ladderize_tree:
     :conda:                    Path to the Conda environment file (phytest.yaml) in the ENVS directory.
     """
     input:
-        newick=rules.extract_tree.output.newick,
+        newick=rules.root_tree.output.newick,
     output: 
         newick="{outdir}/{name}.nwk",
     conda:

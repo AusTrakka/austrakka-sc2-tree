@@ -125,3 +125,7 @@ cli:
             default: true
             type: bool
             help: "Whether to include the reference sequence in the tree."
+        root_on:
+            default: null
+            type: str
+            help: "Outgroup to root the tree on. Must be a sequence in the fasta file."
