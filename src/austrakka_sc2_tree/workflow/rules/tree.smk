@@ -206,7 +206,7 @@ rule root_tree:
     input:
         newick=rules.extract_tree.output.newick,
     output: 
-        newick="{outdir}/{name}.rooted.nwk",
+        newick=temp("{outdir}/{name}.rooted.nwk"),
     conda:
         ENVS / "phytest.yaml"
     params:
